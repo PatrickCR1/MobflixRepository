@@ -58,6 +58,7 @@ class HomeScreenTests {
         val videoCardString = composeTestRule.activity.getString(R.string.video_card)
         val videoCategoryString = composeTestRule.activity.getString(R.string.video_category)
         composeTestRule.onNodeWithTag(videoListString).assertIsDisplayed()
+        composeTestRule.onNodeWithTag(videoListString).assert(hasScrollAction())
         composeTestRule.onAllNodesWithTag(videoRowString)[0].assertIsDisplayed()
         composeTestRule.onAllNodesWithTag(videoRowString)[1].assertIsDisplayed()
         composeTestRule.onAllNodesWithTag(videoCardString)[0].assertIsDisplayed()
