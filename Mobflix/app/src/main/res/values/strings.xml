@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">MOBFLIX</string>
+    <string name="front_end_video_section">Front End</string>
+    <string name="programming_video_section">Programação</string>
+    <string name="mobile_video_section">Mobile</string>
+    <string name="watch_now">Assista agora</string>
+
+
+
+    // Test Tags
+    <string name="app_name_full_column">app name full column</string>
+    <string name="highlight_video_box">highlight video box</string>
+    <string name="video_category">video category</string>
+    <string name="video_category_clickable">video category clickable</string>
+    <string name="video_section_row">video section row</string>
+    <string name="video_list">video list</string>
+    <string name="video_row">video row</string>
+    <string name="video_card">video card</string>
+    <string name="floating_action_button_tag">floating action button tag</string>
+</resources>
