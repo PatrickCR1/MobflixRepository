@@ -7,10 +7,12 @@ val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
 val White = Color(0xFFFFFFFF)
-val BlueAppName = Color(0xFF2478DF)
+val LightBlue = Color(0xFF2478DF)
 val BlackBackground = Color(0xFF1A1A1A)
 val BlueBackgroundVideoCategory = Color(0xFF5781EF)
 val GreenBackgroundVideoCategory = Color(0xFF19940F)
 val RedBackgroundVideoCategory = Color(0xFFD82D2d)
+val BlueEditText = Color(0xFF275FA3)
+
 
 

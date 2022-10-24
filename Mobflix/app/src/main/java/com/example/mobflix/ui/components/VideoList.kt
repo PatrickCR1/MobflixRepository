@@ -17,6 +17,9 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.compose.ui.theme.*
 import com.example.mobflix.R
 import com.example.mobflix.model.VideoModel
+import com.example.mobflix.ui.theme.smallPadding
+import com.example.mobflix.ui.theme.smallSpacedBy
+import com.example.mobflix.ui.theme.verySmallPadding
 
 
 @Composable
@@ -54,8 +57,8 @@ fun VideoRow(videoModel: VideoModel) {
     Column(
         Modifier
             .testTag(stringResource(id = R.string.video_row))
-            .padding(start = 18.dp, end = 18.dp, top = 8.dp, bottom = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+            .padding(start = smallPadding, end = smallPadding, top = verySmallPadding, bottom = verySmallPadding),
+        verticalArrangement = Arrangement.spacedBy(smallSpacedBy)
     ) {
         if (videoModel.category == R.string.front_end_video_section) {
             VideoCategory(

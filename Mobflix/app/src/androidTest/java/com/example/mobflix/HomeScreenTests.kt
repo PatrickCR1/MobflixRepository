@@ -7,7 +7,6 @@ import com.example.mobflix.ui.view.activity.MainActivity
 import org.junit.Rule
 import org.junit.Test
 
-
 class HomeScreenTests {
 
     @get: Rule

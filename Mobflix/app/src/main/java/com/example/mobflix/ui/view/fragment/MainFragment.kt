@@ -26,10 +26,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.compose.ui.theme.*
 import com.example.mobflix.R
 import com.example.mobflix.model.VideoModel
+import com.example.mobflix.service.listener.FABListener
 import com.example.mobflix.ui.screens.HomeScreen
 import com.example.mobflix.ui.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -40,42 +42,41 @@ class MainFragment : Fragment() {
     // ViewModel
     private val viewModel: MainViewModel by viewModel()
 
+    // Transition
+    private var transition = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val fabListener = object : FABListener {
+            override fun onFABClick() {
+                viewModel.navigation()
+            }
+        }
+
+        // Observers
+        observe()
+
         return ComposeView(requireContext()).apply {
             setContent {
-                HomeScreenLayout()
+                HomeScreenLayout(fabListener)
+            }
+        }
+    }
+
+    private fun observe() {
+        viewModel.fabClick.observe(viewLifecycleOwner) {
+            if (it) {
+                val direction = MainFragmentDirections.actionMainFragmentToVideoRegistrationFragment()
+                findNavController().navigate(direction)
             }
         }
     }
 }
 
-val bebasNeueFamily = FontFamily(
-    Font(R.font.bebas_neue_regular_1, FontWeight.Normal),
-    Font(R.font.bebas_neue_bold_1, FontWeight.Bold),
-    Font(R.font.bebas_neue_light_1, FontWeight.Light),
-    Font(R.font.bebas_neue_thin_1, FontWeight.Thin)
-)
-
-val robotoFamily = FontFamily(
-    Font(R.font.roboto_regular, FontWeight.Normal),
-    Font(R.font.roboto_bold, FontWeight.Bold),
-    Font(R.font.roboto_light, FontWeight.Light),
-    Font(R.font.roboto_thin, FontWeight.Thin),
-)
-
 @Composable
-fun HomeScreenLayout() {
-    HomeScreen()
+fun HomeScreenLayout(listener: FABListener) {
+    HomeScreen(listener)
 }
-
-
-
-
-
-
-
-
-

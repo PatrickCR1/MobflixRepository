@@ -11,9 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.example.compose.ui.theme.*
+import com.example.compose.ui.theme.BlueBackgroundVideoCategory
+import com.example.compose.ui.theme.GreenBackgroundVideoCategory
+import com.example.compose.ui.theme.RedBackgroundVideoCategory
 import com.example.mobflix.R
+import com.example.mobflix.ui.theme.mediumSpacedBy
 
 @Composable
 fun VideoCategorySection() {
@@ -22,7 +24,7 @@ fun VideoCategorySection() {
             .fillMaxWidth()
             .horizontalScroll(rememberScrollState(0))
             .testTag(stringResource(id = R.string.video_section_row)),
-        horizontalArrangement = Arrangement.spacedBy(18.dp)
+        horizontalArrangement = Arrangement.spacedBy(mediumSpacedBy)
     ) {
         Spacer(modifier = Modifier)
         VideoCategoryClickable(

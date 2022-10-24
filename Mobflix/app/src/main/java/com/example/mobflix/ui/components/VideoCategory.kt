@@ -20,12 +20,14 @@ import androidx.compose.ui.unit.sp
 import com.example.compose.ui.theme.BlueBackgroundVideoCategory
 import com.example.compose.ui.theme.White
 import com.example.mobflix.R
-import com.example.mobflix.ui.view.fragment.robotoFamily
+import com.example.mobflix.ui.theme.mediumCornerShape
+import com.example.mobflix.ui.theme.normalLightFontWeight
+import com.example.mobflix.ui.theme.robotoFamily
 
 @Composable
 fun VideoCategory(name: String, backgroundColor: Color) {
     Surface(
-        shape = RoundedCornerShape(12.dp)
+        shape = RoundedCornerShape(mediumCornerShape)
     ) {
         Text(
             text = name,
@@ -35,7 +37,7 @@ fun VideoCategory(name: String, backgroundColor: Color) {
                 .padding(top = 7.dp, bottom = 6.dp, start = 23.dp, end = 22.dp)
                 .sizeIn(minWidth = 69.dp, minHeight = 19.dp),
             fontFamily = robotoFamily,
-            fontWeight = FontWeight(400),
+            fontWeight = FontWeight(normalLightFontWeight),
             fontSize = 16.sp,
             lineHeight = 19.sp,
             textAlign = TextAlign.Center,
@@ -50,7 +52,7 @@ fun VideoCategoryClickable(name: String, backgroundColor: Color) {
         Modifier
             .clickable { }
             .testTag(stringResource(id = R.string.video_category_clickable)),
-        shape = RoundedCornerShape(12.dp)
+        shape = RoundedCornerShape(mediumCornerShape)
     ) {
         Text(
             text = name,
@@ -60,7 +62,7 @@ fun VideoCategoryClickable(name: String, backgroundColor: Color) {
                 .sizeIn(minWidth = 69.dp, minHeight = 19.dp)
                 .clickable { },
             fontFamily = robotoFamily,
-            fontWeight = FontWeight(400),
+            fontWeight = FontWeight(normalLightFontWeight),
             fontSize = 16.sp,
             lineHeight = 19.sp,
             textAlign = TextAlign.Center,

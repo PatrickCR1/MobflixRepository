@@ -23,7 +23,9 @@ import com.example.compose.ui.theme.BlueBackgroundVideoCategory
 import com.example.compose.ui.theme.White
 import com.example.mobflix.R
 import com.example.mobflix.model.VideoModel
-import com.example.mobflix.ui.view.fragment.robotoFamily
+import com.example.mobflix.ui.theme.mediumCornerShape
+import com.example.mobflix.ui.theme.normalLightFontWeight
+import com.example.mobflix.ui.theme.robotoFamily
 
 @Composable
 fun HighlightVideo(videoModel: VideoModel) {
@@ -44,7 +46,7 @@ fun HighlightVideo(videoModel: VideoModel) {
                 .offset(y = 26.dp)
                 .align(Alignment.Center)
                 .clickable { },
-            shape = RoundedCornerShape(12.dp)
+            shape = RoundedCornerShape(mediumCornerShape)
 
         ) {
             Text(
@@ -55,7 +57,7 @@ fun HighlightVideo(videoModel: VideoModel) {
                     .sizeIn(minWidth = 69.dp, minHeight = 19.dp)
                     .clickable { },
                 fontFamily = robotoFamily,
-                fontWeight = FontWeight(400),
+                fontWeight = FontWeight(normalLightFontWeight),
                 fontSize = 18.sp,
                 lineHeight = 21.sp,
                 textAlign = TextAlign.Center,

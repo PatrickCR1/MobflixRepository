@@ -12,9 +12,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.compose.ui.theme.BlueAppName
+import com.example.compose.ui.theme.LightBlue
 import com.example.mobflix.R
-import com.example.mobflix.ui.view.fragment.bebasNeueFamily
+import com.example.mobflix.ui.theme.bebasNeueFamily
+import com.example.mobflix.ui.theme.mediumSpacer
+import com.example.mobflix.ui.theme.normalLightFontWeight
 
 @Composable
 fun AppName() {
@@ -26,7 +28,7 @@ fun AppName() {
     ) {
         Spacer(
             modifier = Modifier
-                .height(38.dp)
+                .height(mediumSpacer)
                 .fillMaxWidth()
         )
         Box(
@@ -40,9 +42,9 @@ fun AppName() {
                 text = stringResource(id = R.string.app_name),
                 modifier = Modifier
                     .fillMaxWidth(),
-                color = BlueAppName,
+                color = LightBlue,
                 fontFamily = bebasNeueFamily,
-                fontWeight = FontWeight(400),
+                fontWeight = FontWeight(normalLightFontWeight),
                 fontSize = 32.sp,
                 lineHeight = 38.sp,
                 textAlign = TextAlign.Center

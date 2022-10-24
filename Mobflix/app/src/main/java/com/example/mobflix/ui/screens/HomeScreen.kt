@@ -8,11 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.compose.ui.theme.BlackBackground
+import com.example.mobflix.service.listener.FABListener
 import com.example.mobflix.ui.components.*
 
 @Composable
-fun HomeScreen() {
-    Scaffold(floatingActionButton = { FabIcon {} }) { contentPadding ->
+fun HomeScreen(listener: FABListener) {
+    Scaffold(floatingActionButton = { FabIcon(onClick = {listener.onFABClick()})}) { contentPadding ->
         Column(
             Modifier
                 .fillMaxSize()
@@ -32,5 +33,5 @@ fun HomeScreen() {
 @Preview(showSystemUi = true)
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(listener = sampleFabListener)
 }

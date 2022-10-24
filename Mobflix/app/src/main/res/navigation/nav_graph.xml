@@ -8,5 +8,17 @@
         android:id="@+id/mainFragment"
         android:name="com.example.mobflix.ui.view.fragment.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_videoRegistrationFragment"
+            app:destination="@id/videoRegistrationFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoRegistrationFragment"
+        android:name="com.example.mobflix.ui.view.fragment.VideoRegistrationFragment"
+        android:label="VideoRegistrationFragment" />
 </navigation>

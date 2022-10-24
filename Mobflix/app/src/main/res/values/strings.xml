@@ -4,10 +4,17 @@
     <string name="programming_video_section">Programação</string>
     <string name="mobile_video_section">Mobile</string>
     <string name="watch_now">Assista agora</string>
-
+    <string name="video_registration">Cadastre um vídeo</string>
+    <string name="url_registration">Url: </string>
+    <string name="url_text_hint">Ex: N3h5agha.com</string>
+    <string name="category_registration">Categoria: </string>
+    <string name="category_text_hint">Ex: Mobile, Front-end…</string>
+    <string name="preview">Preview</string>
+    <string name="registration">Cadastrar</string>
 
 
     // Test Tags
+    // HomeScreen
     <string name="app_name_full_column">app name full column</string>
     <string name="highlight_video_box">highlight video box</string>
     <string name="video_category">video category</string>
@@ -17,4 +24,11 @@
     <string name="video_row">video row</string>
     <string name="video_card">video card</string>
     <string name="floating_action_button_tag">floating action button tag</string>
+
+    //RegistrationScreen
+    <string name="registration_field_text">registration field text</string>
+    <string name="registration_field_edit_text">registration field edit text</string>
+    <string name="video_card_preview">video card preview</string>
+    <string name="registration_button">registration button</string>
+
 </resources>
