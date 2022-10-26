@@ -7,6 +7,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -19,15 +20,26 @@ import com.example.compose.ui.theme.BlueEditText
 import com.example.compose.ui.theme.White
 import com.example.mobflix.R
 import com.example.mobflix.ui.theme.*
+import com.example.mobflix.ui.viewmodel.VideoRegistrationViewModel
+import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun RegistrationFields() {
+fun RegistrationFields(viewModel: VideoRegistrationViewModel = getViewModel()) {
+    val urlText = viewModel.urlText.observeAsState().value
+    val categoryText = viewModel.categoryText.observeAsState().value
     Column() {
         RegistrationFieldText(name = stringResource(id = R.string.url_registration))
-        RegistrationFieldEditText(stringResource(id = R.string.url_text_hint))
+        RegistrationFieldEditText(stringResource(id = R.string.url_text_hint), urlText!!) {
+            viewModel.onUrlTextChanged(it)
+        }
         Spacer(modifier = Modifier.height(smallSpacer))
         RegistrationFieldText(name = stringResource(id = R.string.category_registration))
-        RegistrationFieldEditText(stringResource(id = R.string.category_text_hint))
+        RegistrationFieldEditText(
+            stringResource(id = R.string.category_text_hint),
+            categoryText!!
+        ) {
+            viewModel.onCategoryChanged(it)
+        }
     }
 }
 
@@ -63,15 +75,18 @@ private fun RegistrationFieldTextPreview() {
 }
 
 @Composable
-fun RegistrationFieldEditText(hint: String) {
-    var text by remember { mutableStateOf("") }
+fun RegistrationFieldEditText(hint: String, text: String, function: (String) -> Unit) {
     Surface(
         shape = RoundedCornerShape(smallCornerShape),
-        modifier = Modifier.padding(start = mediumPadding, end = mediumPadding, top = verySmallPadding)
+        modifier = Modifier.padding(
+            start = mediumPadding,
+            end = mediumPadding,
+            top = verySmallPadding
+        )
     ) {
         TextField(
             value = text,
-            onValueChange = {text = it},
+            onValueChange = function,
             placeholder = { Text(hint) },
             modifier = Modifier
                 .testTag(stringResource(id = R.string.registration_field_edit_text))
@@ -85,5 +100,7 @@ fun RegistrationFieldEditText(hint: String) {
 @Preview
 @Composable
 private fun RegistrationFieldEditTextPreview() {
-    RegistrationFieldEditText(stringResource(id = R.string.url_text_hint))
+    RegistrationFieldEditText(stringResource(id = R.string.url_text_hint), "") {
+        exampleFun()
+    }
 }

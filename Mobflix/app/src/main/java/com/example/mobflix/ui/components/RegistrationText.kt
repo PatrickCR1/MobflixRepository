@@ -23,7 +23,6 @@ fun RegistrationText(name: String) {
         Text(
             text = name,
             modifier = Modifier
-                .padding(start = mediumPadding, end = mediumPadding)
                 .height(38.dp)
                 .fillMaxWidth(),
             color = White,

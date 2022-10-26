@@ -8,12 +8,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.compose.ui.theme.BlackBackground
-import com.example.mobflix.service.listener.FABListener
 import com.example.mobflix.ui.components.*
+import com.example.mobflix.ui.viewmodel.MainViewModel
+import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun HomeScreen(listener: FABListener) {
-    Scaffold(floatingActionButton = { FabIcon(onClick = {listener.onFABClick()})}) { contentPadding ->
+fun HomeScreen(viewModel: MainViewModel = getViewModel()) {
+
+    Scaffold(floatingActionButton = { FabIcon(onClick = {viewModel.navigation()})}) { contentPadding ->
         Column(
             Modifier
                 .fillMaxSize()
@@ -25,7 +27,7 @@ fun HomeScreen(listener: FABListener) {
             Spacer(modifier = Modifier.height(16.dp))
             VideoCategorySection()
             Spacer(modifier = Modifier.height(8.dp))
-            VideoList(videoList = videoLisSample)
+            VideoList()
         }
     }
 }
@@ -33,5 +35,5 @@ fun HomeScreen(listener: FABListener) {
 @Preview(showSystemUi = true)
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen(listener = sampleFabListener)
+    HomeScreen()
 }

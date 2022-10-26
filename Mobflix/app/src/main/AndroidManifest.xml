@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mobflix"
         tools:targetApi="31"
-        android:name=".MobflixApplication">
+        android:name=".di.MobflixApplication">
         <activity
             android:name=".ui.view.activity.MainActivity"
             android:exported="true"

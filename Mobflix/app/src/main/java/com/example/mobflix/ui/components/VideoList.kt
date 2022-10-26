@@ -16,10 +16,14 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.compose.ui.theme.*
 import com.example.mobflix.R
-import com.example.mobflix.model.VideoModel
+import com.example.mobflix.service.model.category.CategoryModel
+import com.example.mobflix.service.model.video.VideoModel
 import com.example.mobflix.ui.theme.smallPadding
 import com.example.mobflix.ui.theme.smallSpacedBy
 import com.example.mobflix.ui.theme.verySmallPadding
+import com.example.mobflix.ui.viewmodel.MainViewModel
+import com.example.mobflix.ui.viewmodel.VideoRegistrationViewModel
+import org.koin.androidx.compose.getViewModel
 
 
 @Composable
@@ -40,12 +44,12 @@ fun VideoCard(videoModel: VideoModel) {
 }
 
 @Composable
-fun VideoList(videoList: List<VideoModel>) {
+fun VideoList(viewModel: MainViewModel = getViewModel()) {
     LazyColumn(
         Modifier
             .testTag(stringResource(id = R.string.video_list))
     ) {
-        items(videoList) {
+        items(viewModel.videoList.value!!) {
             VideoRow(videoModel = it)
         }
     }
@@ -53,32 +57,24 @@ fun VideoList(videoList: List<VideoModel>) {
 
 
 @Composable
-fun VideoRow(videoModel: VideoModel) {
+fun VideoRow(videoModel: VideoModel, viewModel: VideoRegistrationViewModel = getViewModel()) {
     Column(
         Modifier
             .testTag(stringResource(id = R.string.video_row))
-            .padding(start = smallPadding, end = smallPadding, top = verySmallPadding, bottom = verySmallPadding),
+            .padding(
+                start = smallPadding,
+                end = smallPadding,
+                top = verySmallPadding,
+                bottom = verySmallPadding
+            ),
         verticalArrangement = Arrangement.spacedBy(smallSpacedBy)
     ) {
-        if (videoModel.category == R.string.front_end_video_section) {
-            VideoCategory(
-                name = stringResource(id = R.string.front_end_video_section),
-                backgroundColor = BlueBackgroundVideoCategory
-            )
-
-        } else if (videoModel.category == R.string.programming_video_section) {
-            VideoCategory(
-                name = stringResource(id = R.string.programming_video_section),
-                backgroundColor = GreenBackgroundVideoCategory
-            )
-        } else {
-            VideoCategory(
-                name = stringResource(id = R.string.mobile_video_section),
-                backgroundColor = RedBackgroundVideoCategory
-            )
-        }
-        VideoCard(videoModel = videoModel)
+        VideoCategory(
+            name = videoModel.category,
+            backgroundColor = viewModel.getCategoryColor(videoModel)
+        )
     }
+    VideoCard(videoModel = videoModel)
 }
 
 @Preview()
@@ -90,7 +86,7 @@ private fun VideoCardPreview() {
 @Preview()
 @Composable
 private fun VideoListPreview() {
-    VideoList(videoList = videoLisSample)
+    VideoList()
 }
 
 @Preview()

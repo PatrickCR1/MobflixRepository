@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,31 +17,21 @@ import com.example.compose.ui.theme.BlueBackgroundVideoCategory
 import com.example.compose.ui.theme.GreenBackgroundVideoCategory
 import com.example.compose.ui.theme.RedBackgroundVideoCategory
 import com.example.mobflix.R
+import com.example.mobflix.service.model.category.CategoryModel
 import com.example.mobflix.ui.theme.mediumSpacedBy
+import com.example.mobflix.ui.viewmodel.MainViewModel
+import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun VideoCategorySection() {
-    Row(
+fun VideoCategorySection(viewModel: MainViewModel = getViewModel()) {
+    LazyRow(
         Modifier
-            .fillMaxWidth()
-            .horizontalScroll(rememberScrollState(0))
             .testTag(stringResource(id = R.string.video_section_row)),
         horizontalArrangement = Arrangement.spacedBy(mediumSpacedBy)
     ) {
-        Spacer(modifier = Modifier)
-        VideoCategoryClickable(
-            name = stringResource(id = R.string.front_end_video_section),
-            backgroundColor = BlueBackgroundVideoCategory
-        )
-        VideoCategoryClickable(
-            name = stringResource(id = R.string.programming_video_section),
-            backgroundColor = GreenBackgroundVideoCategory
-        )
-        VideoCategoryClickable(
-            name = stringResource(id = R.string.mobile_video_section),
-            backgroundColor = RedBackgroundVideoCategory
-        )
-        Spacer(modifier = Modifier)
+        items(viewModel.categoryList.value!!) {
+            VideoCategoryClickable(name = it.category, backgroundColor = it.color)
+        }
     }
 }
 

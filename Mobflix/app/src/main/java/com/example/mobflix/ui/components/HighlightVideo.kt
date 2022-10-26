@@ -22,7 +22,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.compose.ui.theme.BlueBackgroundVideoCategory
 import com.example.compose.ui.theme.White
 import com.example.mobflix.R
-import com.example.mobflix.model.VideoModel
+import com.example.mobflix.service.model.video.VideoModel
 import com.example.mobflix.ui.theme.mediumCornerShape
 import com.example.mobflix.ui.theme.normalLightFontWeight
 import com.example.mobflix.ui.theme.robotoFamily

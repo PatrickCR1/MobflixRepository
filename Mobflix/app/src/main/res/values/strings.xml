@@ -1,4 +1,10 @@
 <resources>
+
+    <string name="ERROR_UNEXPECTED">Um erro inesperado ocorreu. Tente novamente mais tarde.</string>
+    <string name="ERROR_INTERNET_CONNECTION">Conexão à internet necessária para uso da applicação.</string>
+    <string name="OFFLINE_MODE">Modo Offline ativado</string>
+    <string name="ERROR_INVALID_FIELDS">Por favor preencha os campos corretamente</string>
+
     <string name="app_name">MOBFLIX</string>
     <string name="front_end_video_section">Front End</string>
     <string name="programming_video_section">Programação</string>

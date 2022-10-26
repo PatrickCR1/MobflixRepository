@@ -13,6 +13,14 @@ val BlueBackgroundVideoCategory = Color(0xFF5781EF)
 val GreenBackgroundVideoCategory = Color(0xFF19940F)
 val RedBackgroundVideoCategory = Color(0xFFD82D2d)
 val BlueEditText = Color(0xFF275FA3)
+val DarkBlue = Color(0xFF104381)
+val DarkRed = Color(0xFF720411)
+val DarkGreen = Color(0xFF3E7706)
+val DarkPurple = Color(0xFF6B0469)
+val DarkBrown = Color(0xFF693B04)
+val DarkYellow = Color(0xFF85790C)
+val DarkPink = Color(0xFF8A1149)
+val DarkOrange = Color(0xFFD17F1C)
 
 
 
