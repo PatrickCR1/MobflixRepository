@@ -6,17 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.compose.ui.theme.BlueEditText
 import com.example.mobflix.R
-import com.example.mobflix.service.listener.RegistrationButtonListener
 import com.example.mobflix.ui.theme.mediumPadding
 import com.example.mobflix.ui.theme.smallPadding
 import com.example.mobflix.ui.viewmodel.VideoRegistrationViewModel
@@ -85,5 +82,5 @@ fun PreviewVideoCard(image: Int) {
 @Preview
 @Composable
 private fun PreviewVideoCardPreview() {
-    PreviewVideoCard(image = image)
+    PreviewVideoCard(image = imageSample)
 }

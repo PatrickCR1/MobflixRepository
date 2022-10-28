@@ -9,10 +9,10 @@ import com.example.mobflix.service.model.video.VideoDatabaseModel
 interface VideoDAO {
 
     @Insert
-    fun save(video: VideoDatabaseModel)
+    suspend fun save(video: VideoDatabaseModel)
 
     @Query("SELECT * FROM Video")
-    fun videoList(): List<VideoDatabaseModel>
+    suspend fun videoList(): List<VideoDatabaseModel>
 
     @Query("DELETE FROM Video")
     fun clear()

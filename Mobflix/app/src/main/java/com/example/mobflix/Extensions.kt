@@ -14,11 +14,12 @@ fun VideoModel.toVideoDatabaseModel() = VideoDatabaseModel(
     category = category,
 )
 
-fun VideoDatabaseModel.toVideoModel() = VideoModel(
+fun VideoDatabaseModel.toVideoModel(color: Color) = VideoModel(
     id = id,
     url = url,
     image = image,
     category = category,
+    categoryColor = color,
 )
 
 fun CategoryModel.toCategoryDatabaseModel() = CategoryDatabaseModel(

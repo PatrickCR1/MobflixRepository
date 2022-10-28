@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,56 +31,49 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun VideoRegistrationButton(viewModel: VideoRegistrationViewModel = getViewModel()) {
-    val scaffoldState: ScaffoldState = rememberScaffoldState()
-    val coroutineScope: CoroutineScope = rememberCoroutineScope()
-    val context = LocalContext.current
-    Scaffold(scaffoldState = scaffoldState) { contentPadding ->
-        Column(Modifier
+    val snackBarValue = viewModel.snackBar.observeAsState().value
+    val scaffoldState = rememberScaffoldState()
+    val coroutineScope = rememberCoroutineScope()
+    Column(
+        Modifier
             .fillMaxSize()
-            .padding(contentPadding)
-            .background(BlackBackground)) {
-            Surface(
-                shape = RoundedCornerShape(smallCornerShape),
-                modifier = Modifier
-                    .padding(
-                        top = smallPadding
-                    )
+            .background(BlackBackground)
+    ) {
+        Surface(
+            shape = RoundedCornerShape(smallCornerShape),
+            modifier = Modifier
+                .padding(
+                    top = smallPadding
+                )
+        ) {
+            Box(
+                Modifier
+                    .testTag(stringResource(id = R.string.registration_button))
+                    .background(LightBlue)
+                    .height(48.dp)
+                    .fillMaxWidth()
+                    .clickable {
+                        viewModel.videoRegistration()
+                    },
+                contentAlignment = Alignment.Center
             ) {
-                Box(
-                    Modifier
-                        .testTag(stringResource(id = R.string.registration_button))
-                        .background(LightBlue)
-                        .height(48.dp)
-                        .fillMaxWidth()
-                        .clickable {
-                            viewModel.videoRegistration()
-                            coroutineScope.launch() {
-                                if (viewModel.showSnackBar.value == true) {
-                                    scaffoldState.snackbarHostState.showSnackbar(
-                                        message = context.resources.getString(R.string.ERROR_INVALID_FIELDS)
-                                    )
-                                }
-                            }
-                        },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.registration),
-                        fontFamily = robotoFamily,
-                        fontWeight = FontWeight(normalLightFontWeight),
-                        fontSize = 18.sp,
-                        lineHeight = 21.sp,
-                        textAlign = TextAlign.Center,
-                        color = White,
-                    )
-                }
+                Text(
+                    text = stringResource(id = R.string.registration),
+                    fontFamily = robotoFamily,
+                    fontWeight = FontWeight(normalLightFontWeight),
+                    fontSize = 18.sp,
+                    lineHeight = 21.sp,
+                    textAlign = TextAlign.Center,
+                    color = White,
+                )
             }
         }
     }
 }
 
+
 @Preview
 @Composable
 private fun VideoRegistrationButtonPreview() {
-    VideoRegistrationButton()
+
 }

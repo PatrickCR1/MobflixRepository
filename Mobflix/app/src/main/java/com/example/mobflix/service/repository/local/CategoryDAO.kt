@@ -9,10 +9,10 @@ import com.example.mobflix.service.model.category.CategoryDatabaseModel
 interface CategoryDAO {
 
     @Insert
-    fun save(categoryModel: CategoryDatabaseModel)
+    suspend fun save(categoryModel: CategoryDatabaseModel)
 
     @Query("SELECT * FROM Category")
-    fun list(): List<CategoryDatabaseModel>
+    suspend fun list(): List<CategoryDatabaseModel>
 
     @Query("DELETE FROM Category")
     fun clear()

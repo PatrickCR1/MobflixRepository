@@ -3,7 +3,9 @@ package com.example.mobflix
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.testing.launchFragmentInContainer
 import com.example.mobflix.ui.view.activity.MainActivity
+import com.example.mobflix.ui.view.fragment.VideoRegistrationFragment
 import org.junit.Rule
 import org.junit.Test
 

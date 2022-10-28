@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.compose.ui.theme.*
 import com.example.mobflix.R
-import com.example.mobflix.service.model.category.CategoryModel
 import com.example.mobflix.service.model.video.VideoModel
 import com.example.mobflix.ui.theme.smallPadding
 import com.example.mobflix.ui.theme.smallSpacedBy
@@ -29,18 +29,21 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun VideoList(viewModel: MainViewModel = getViewModel()) {
+    val videoList = viewModel.videoList.observeAsState().value
     LazyColumn(
         Modifier
             .testTag(stringResource(id = R.string.video_list))
     ) {
-        if (!viewModel.videoList.value!!.isEmpty()) {
-            items(viewModel.videoList.value!!) {
+        if (!videoList!!.isEmpty()) {
+            items(videoList!!) {
                 VideoRow(videoModel = it)
                 Spacer(modifier = Modifier.height(verySmallPadding))
             }
         } else {
-            items(2) {
-                VideoRow()
+            items(1) {
+                VideoRow(DarkGoldBackgroundVideoCategory)
+                Spacer(modifier = Modifier.height(verySmallPadding))
+                VideoRow(PurpleBackgroundVideoCategory)
                 Spacer(modifier = Modifier.height(verySmallPadding))
             }
         }
@@ -63,14 +66,14 @@ fun VideoRow(videoModel: VideoModel, viewModel: VideoRegistrationViewModel = get
     ) {
         VideoCategory(
             name = videoModel.category,
-            backgroundColor = viewModel.getCategoryColor(videoModel)
+            backgroundColor = videoModel.categoryColor
         )
     }
     VideoCard(videoModel = videoModel)
 }
 
 @Composable
-fun VideoRow() {
+fun VideoRow(backgroundColor: Color) {
     Column(
         Modifier
             .testTag(stringResource(id = R.string.video_row))
@@ -84,7 +87,7 @@ fun VideoRow() {
     ) {
         VideoCategory(
             name = stringResource(id = R.string.your_category),
-            backgroundColor = RedBackgroundVideoCategory
+            backgroundColor = backgroundColor
         )
     }
     VideoCard()

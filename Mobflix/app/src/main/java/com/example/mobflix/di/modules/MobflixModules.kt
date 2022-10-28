@@ -19,12 +19,12 @@ import retrofit2.Retrofit
 
 val mobflixViewModelModules = module {
     viewModel<MainViewModel> { MainViewModel(get(),get()) }
-    viewModel<VideoRegistrationViewModel> { VideoRegistrationViewModel(get(), get()) }
+    viewModel<VideoRegistrationViewModel> { VideoRegistrationViewModel(get(), get(), androidContext()) }
 }
 
 val videoRepositoryModules = module {
-    single<VideoRepository> { VideoRepository(get(), get(), androidContext()) }
-    single<CategoryRepository> { CategoryRepository(get(), androidContext()) }
+    single<VideoRepository> { VideoRepository(get(), get(), get()) }
+    single<CategoryRepository> { CategoryRepository(get()) }
 }
 
 val videoDatabaseModules = module {

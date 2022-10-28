@@ -4,6 +4,6 @@ interface APIListener<T> {
 
     fun onSucess(result: T)
 
-    fun onFailure(message: String)
+    fun onFailure(message: String?)
 
 }

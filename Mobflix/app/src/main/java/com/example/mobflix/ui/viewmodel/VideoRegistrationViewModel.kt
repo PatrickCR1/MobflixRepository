@@ -1,7 +1,10 @@
 package com.example.mobflix.ui.viewmodel
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,7 +20,8 @@ import java.util.regex.Pattern
 
 class VideoRegistrationViewModel(
     private val videoRepository: VideoRepository,
-    private val categoryRepository: CategoryRepository
+    private val categoryRepository: CategoryRepository,
+    private val context: Context
 ) : ViewModel() {
 
     val image = mutableStateOf("")
@@ -31,8 +35,8 @@ class VideoRegistrationViewModel(
     private val _registrationClick = MutableLiveData<Boolean>()
     val registrationClick: LiveData<Boolean> = _registrationClick
 
-    private val _showSnackBar = MutableLiveData<Boolean>()
-    val showSnackBar: LiveData<Boolean> = _showSnackBar
+    private val _snackBar = MutableLiveData<String>("")
+    val snackBar: LiveData<String> = _snackBar
 
     // API Listener
     val listener = object : APIListener<String> {
@@ -40,7 +44,12 @@ class VideoRegistrationViewModel(
             image.value = result
         }
 
-        override fun onFailure(message: String) {
+        override fun onFailure(message: String?) {
+            if (message == null) {
+                _snackBar.value = context.getString(R.string.ERROR_UNEXPECTED)
+            } else {
+                _snackBar.value = message!!
+            }
         }
     }
 
@@ -63,7 +72,7 @@ class VideoRegistrationViewModel(
                 _registrationClick.value = true
             }
         } else {
-            _showSnackBar.value = true
+            _snackBar.value = context.getString(R.string.ERROR_INVALID_FIELDS)
         }
     }
 
@@ -89,23 +98,14 @@ class VideoRegistrationViewModel(
         }
     }
 
-    fun getCategoryColor(videoModel: VideoModel): Color {
-        val list = categoryRepository.getCategoryList()
-        var categoryColor = Color.Black
-        list.forEach {
-            if (videoModel.category == it.category) {
-                categoryColor = it.color
-            }
-        }
-        return categoryColor
-    }
-
     fun clickComplete() {
         _registrationClick.value = false
     }
 
     suspend fun getImage(id: String) {
-        videoRepository.getThumbnailImage(id, listener)
+        if (checkInternet(listener)) {
+            videoRepository.getThumbnailImage(id, listener)
+        }
     }
 
     fun getVideoId(videoUrl: String): String {
@@ -132,6 +132,40 @@ class VideoRegistrationViewModel(
     }
 
     fun showSnackBar() {
-        _showSnackBar.value = true
+        _snackBar.value = context.getString(R.string.ERROR_INVALID_FIELDS)
+    }
+
+    // Check Internet
+    fun isConnectionAvailable(): Boolean {
+
+        var result = false
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val activeNet = cm.activeNetwork ?: return false
+            val networkCapabilities = cm.getNetworkCapabilities(activeNet) ?: return false
+            result = when {
+                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                else -> false
+            }
+        } else {
+            // Deprecated
+            if (cm.activeNetworkInfo != null) {
+                result = when (cm.activeNetworkInfo!!.type) {
+                    ConnectivityManager.TYPE_WIFI -> true
+                    ConnectivityManager.TYPE_MOBILE -> true
+                    ConnectivityManager.TYPE_ETHERNET -> true
+                    else -> false
+                }
+            }
+        }
+        return result
+    }
+
+    fun <T> checkInternet(listener: APIListener<T>): Boolean {
+        return if (!isConnectionAvailable()) {
+            listener.onFailure(context.getString(R.string.OFFLINE_MODE))
+            false
+        } else true
     }
 }
