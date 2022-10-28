@@ -3,12 +3,14 @@ package com.example.mobflix.service.repository
 import androidx.compose.ui.graphics.Color
 import com.example.mobflix.service.constants.MobflixConstants
 import com.example.mobflix.service.listener.APIListener
+import com.example.mobflix.service.model.api.TopResponse
 import com.example.mobflix.service.model.video.VideoModel
 import com.example.mobflix.service.repository.local.VideoDAO
 import com.example.mobflix.service.repository.remote.YoutubeService
 import com.example.mobflix.toVideoDatabaseModel
 import com.example.mobflix.toVideoModel
 import com.google.gson.Gson
+import retrofit2.Response
 
 class VideoRepository(
     private val dao: VideoDAO,
@@ -19,18 +21,25 @@ class VideoRepository(
     suspend fun getThumbnailImage(videoId: String, listener: APIListener<String>) {
         val response = webService.getVideo(id = videoId)
         if (response.isSuccessful) {
-            if (response.code() == MobflixConstants.HTTP.SUCCESS) {
-                val imageUrl =
-                    if (response.body()?.items?.count() != 0) {
-                        response.body()?.items!![0].snippet?.thumbnails?.high?.thumbnailUrl!!
-                    } else {
-                        ""
-                    }
-                listener.onSucess(imageUrl)
+            responseSucessful(response, listener)
+        } else {
+            listener.onFailure(null)
+        }
+    }
 
-            } else {
-                listener.onFailure(failResponse(response.errorBody()!!.string()))
-            }
+    fun responseSucessful(
+        response: Response<TopResponse>,
+        listener: APIListener<String>
+    ) {
+        if (response.code() == MobflixConstants.HTTP.SUCCESS) {
+            val imageUrl =
+                if (response.body()?.items?.count() != 0) {
+                    response.body()?.items!![0].snippet?.thumbnails?.high?.thumbnailUrl!!
+                } else {
+                    ""
+                }
+            listener.onSucess(imageUrl)
+
         } else {
             listener.onFailure(null)
         }
@@ -55,9 +64,5 @@ class VideoRepository(
     suspend fun saveVideo(video: VideoModel) {
         val videoDB = video.toVideoDatabaseModel()
         dao.save(videoDB)
-    }
-
-    fun failResponse(str: String): String {
-        return Gson().fromJson(str, String::class.java)
     }
 }

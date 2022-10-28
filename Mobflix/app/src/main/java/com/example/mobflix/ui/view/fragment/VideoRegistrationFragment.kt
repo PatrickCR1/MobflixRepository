@@ -22,8 +22,6 @@ class VideoRegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
-
         // Observer
         observe()
 

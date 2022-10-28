@@ -4,6 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.mobflix.service.repository.CategoryRepository
 import com.example.mobflix.service.repository.VideoRepository
+import com.example.mobflix.service.repository.local.CategoryDAO
+import com.example.mobflix.ui.components.categoryDatabaseListSample
 import com.example.mobflix.ui.components.categoryListSample
 import com.example.mobflix.ui.components.videoListSample
 import com.example.mobflix.ui.viewmodel.MainViewModel
@@ -38,6 +40,7 @@ class MainViewModelTests {
     @Test
     fun shouldChangeVideoListValueWhenCallingGetVideoList() = runBlocking {
 
+        // Arrange
         coEvery {videoRepository.getVideoList()} returns videoListSample
 
         //Act
@@ -50,18 +53,20 @@ class MainViewModelTests {
 
     }
 
+
     @Test
     fun shouldChangeCategoryListValueWhenCallingGetCategoryList() = runBlocking {
 
-        coEvery {categoryRepository.getCategoryList()} returns categoryListSample
+        // Arrange
+        coEvery { categoryRepository.getCategoryList() } returns categoryListSample
 
-        //Act
+        // Act
         viewModel.getCategoryList()
 
-        //Assert
-            viewModel.categoryList.observeForever {
-                assertEquals(categoryListSample, it)
-            }
+        val returnValue = viewModel.categoryList.getOrAwaitValue()
+
+        // Assert
+        assertEquals(categoryListSample, returnValue)
     }
 
     @Test
