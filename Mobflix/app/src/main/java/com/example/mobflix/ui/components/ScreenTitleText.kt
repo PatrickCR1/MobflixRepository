@@ -18,7 +18,24 @@ import com.example.mobflix.ui.theme.mediumPadding
 import com.example.mobflix.ui.theme.robotoFamily
 
 @Composable
-fun RegistrationText(name: String) {
+fun ScreenTitleText(name: String) {
+    Column(Modifier.padding(start = mediumPadding, end = mediumPadding)) {
+        Text(
+            text = name,
+            modifier = Modifier
+                .height(38.dp)
+                .fillMaxWidth(),
+            color = White,
+            fontFamily = robotoFamily,
+            fontWeight = FontWeight(700),
+            fontSize = 32.sp,
+            lineHeight = 38.sp,
+        )
+    }
+}
+
+@Composable
+fun PreviewText(name: String) {
     Column() {
         Text(
             text = name,
@@ -37,5 +54,11 @@ fun RegistrationText(name: String) {
 @Preview
 @Composable
 private fun RegistrationTextPreview() {
-    RegistrationText(stringResource(id = R.string.video_registration))
+    ScreenTitleText(stringResource(id = R.string.video_registration))
+}
+
+@Preview
+@Composable
+private fun PreviewTextPreview() {
+    PreviewText(stringResource(id = R.string.preview))
 }

@@ -3,6 +3,7 @@ package com.example.mobflix.service.repository.local
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.example.mobflix.service.model.video.VideoDatabaseModel
 
 @Dao
@@ -13,6 +14,12 @@ interface VideoDAO {
 
     @Query("SELECT * FROM Video")
     suspend fun videoList(): List<VideoDatabaseModel>
+
+    @Query("DELETE FROM Video WHERE id = :id")
+    suspend fun remove(id: Int)
+
+    @Update
+    suspend fun updateVideo(video: VideoDatabaseModel)
 
     @Query("DELETE FROM Video")
     fun clear()

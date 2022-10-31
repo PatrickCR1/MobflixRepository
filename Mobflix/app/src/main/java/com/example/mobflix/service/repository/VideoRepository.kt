@@ -65,4 +65,14 @@ class VideoRepository(
         val videoDB = video.toVideoDatabaseModel()
         dao.save(videoDB)
     }
+
+    suspend fun removeVideo(video: VideoModel) {
+        val videoDB = video.toVideoDatabaseModel()
+        dao.remove(videoDB.id)
+    }
+
+    suspend fun updateVideo(video: VideoModel) {
+        val videoDB = video.toVideoDatabaseModel()
+        dao.updateVideo(videoDB)
+    }
 }

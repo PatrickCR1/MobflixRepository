@@ -66,7 +66,6 @@ class VideoRepositoryTests {
     @Test
     fun saveVideoShouldCallDaoSave() = runBlocking {
         // Arrange
-        coEvery { videoDao.videoList() } returns videoDatabaseListSample
         coEvery { videoDao.save(any()) } returns Unit
 
         // Act
@@ -75,6 +74,34 @@ class VideoRepositoryTests {
         // Assert
         coVerify {
             videoDao.save(any())
+        }
+    }
+
+    @Test
+    fun deleteVideoShouldCallDaoDelete() = runBlocking {
+        // Arrange
+        coEvery { videoDao.remove(any()) } returns Unit
+
+        // Act
+        videoRepository.removeVideo(videoModelSample)
+
+        // Assert
+        coVerify {
+            videoDao.remove(any())
+        }
+    }
+
+    @Test
+    fun updateVideoShouldCallDaoDelete() = runBlocking {
+        // Arrange
+        coEvery { videoDao.updateVideo(any()) } returns Unit
+
+        // Act
+        videoRepository.updateVideo(videoModelSample)
+
+        // Assert
+        coVerify {
+            videoDao.updateVideo(any())
         }
     }
 

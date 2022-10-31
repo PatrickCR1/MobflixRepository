@@ -1,7 +1,9 @@
 package com.example.mobflix.ui.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -52,7 +54,7 @@ fun VideoList(viewModel: MainViewModel = getViewModel()) {
 
 
 @Composable
-fun VideoRow(videoModel: VideoModel, viewModel: VideoRegistrationViewModel = getViewModel()) {
+fun VideoRow(videoModel: VideoModel, viewModel: MainViewModel = getViewModel()) {
     Column(
         Modifier
             .testTag(stringResource(id = R.string.video_row))
@@ -69,7 +71,7 @@ fun VideoRow(videoModel: VideoModel, viewModel: VideoRegistrationViewModel = get
             backgroundColor = videoModel.categoryColor
         )
     }
-    VideoCard(videoModel = videoModel)
+    VideoCard(videoModel = videoModel, onClick = {}, onLongClick = {viewModel.navigationEditScreen(videoModel)})
 }
 
 @Composable
@@ -93,13 +95,14 @@ fun VideoRow(backgroundColor: Color) {
     VideoCard()
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun VideoCard(videoModel: VideoModel) {
+fun VideoCard(videoModel: VideoModel, onClick: () -> Unit, onLongClick: () -> Unit) {
     Box(
         modifier = Modifier
             .padding(start = smallPadding, end = smallPadding, top = verySmallPadding)
             .testTag(stringResource(id = R.string.video_card))
-            .clickable { }, contentAlignment = Alignment.Center
+            .combinedClickable (onClick = onClick, onLongClick = onLongClick), contentAlignment = Alignment.Center
     ) {
         Image(
             painter = rememberAsyncImagePainter(model = videoModel.image), modifier = Modifier
@@ -132,7 +135,7 @@ fun VideoCard() {
 @Preview()
 @Composable
 private fun VideoCardPreview() {
-    VideoCard(videoModel = videoModelSample)
+    VideoCard(videoModel = videoModelSample, onClick = {}, onLongClick = {})
 }
 
 @Preview()

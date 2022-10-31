@@ -11,12 +11,15 @@
     <string name="mobile_video_section">Mobile</string>
     <string name="watch_now">Assista agora</string>
     <string name="video_registration">Cadastre um vídeo</string>
+    <string name="video_edit">Edite o vídeo</string>
     <string name="url_registration">Url: </string>
     <string name="url_text_hint">Ex: N3h5agha.com</string>
     <string name="category_registration">Categoria: </string>
     <string name="category_text_hint">Ex: Mobile, Front-end…</string>
     <string name="preview">Preview</string>
     <string name="registration">Cadastrar</string>
+    <string name="edit">Alterar</string>
+    <string name="remove">Remover</string>
 
     <string name="your_category">Sua Categoria Aqui</string>
 
@@ -38,5 +41,9 @@
     <string name="registration_field_edit_text">registration field edit text</string>
     <string name="video_card_preview">video card preview</string>
     <string name="registration_button">registration button</string>
+    <string name="snack_bar">snack bar</string>
+
+    //EditVideoScreen
+    <string name="video_preview_edit_screen">video preview edit screen</string>
 
 </resources>

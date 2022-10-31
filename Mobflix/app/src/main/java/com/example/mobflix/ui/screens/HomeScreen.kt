@@ -15,7 +15,7 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun HomeScreen(viewModel: MainViewModel = getViewModel()) {
 
-    Scaffold(floatingActionButton = { FabIcon(onClick = {viewModel.navigation()})}) { contentPadding ->
+    Scaffold(floatingActionButton = { FabIcon(onClick = {viewModel.navigationRegistrationScreen()})}) { contentPadding ->
         Column(
             Modifier
                 .fillMaxSize()

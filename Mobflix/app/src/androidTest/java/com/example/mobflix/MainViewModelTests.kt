@@ -4,16 +4,12 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.mobflix.service.repository.CategoryRepository
 import com.example.mobflix.service.repository.VideoRepository
-import com.example.mobflix.service.repository.local.CategoryDAO
-import com.example.mobflix.ui.components.categoryDatabaseListSample
 import com.example.mobflix.ui.components.categoryListSample
 import com.example.mobflix.ui.components.videoListSample
 import com.example.mobflix.ui.viewmodel.MainViewModel
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -72,7 +68,7 @@ class MainViewModelTests {
     @Test
     fun shouldChangeFabClickValueToTrueWhenCallingNavigation() {
         //Act
-        viewModel.navigation()
+        viewModel.navigationRegistrationScreen()
 
         //Assert
         viewModel.fabClick.observeForever{
@@ -83,7 +79,7 @@ class MainViewModelTests {
     @Test
     fun shouldChangeFabClickValueToFalseWhenCallingNavigationComplete() {
         //Act
-        viewModel.navigationComplete()
+        viewModel.navigationRegistrationScreenComplete()
 
         //Assert
         viewModel.fabClick.observeForever{

@@ -25,6 +25,9 @@ class MainViewModel(
     private val _fabClick = MutableLiveData<Boolean>()
     val fabClick: LiveData<Boolean> = _fabClick
 
+    private val _videoClick = MutableLiveData<VideoModel>()
+    val videoClick: LiveData<VideoModel> = _videoClick
+
     // Get List
     fun getVideoList() {
         viewModelScope.launch {
@@ -38,11 +41,19 @@ class MainViewModel(
         }
     }
 
-    fun navigation() {
+    fun navigationRegistrationScreen() {
         _fabClick.value = true
     }
 
-    fun navigationComplete() {
+    fun navigationRegistrationScreenComplete() {
         _fabClick.value = false
+    }
+
+    fun navigationEditScreen(video: VideoModel) {
+        _videoClick.value = video
+    }
+
+    fun navigationEditScreenComplete() {
+        _videoClick.value = VideoModel()
     }
 }

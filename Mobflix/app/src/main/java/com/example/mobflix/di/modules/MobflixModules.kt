@@ -9,6 +9,7 @@ import com.example.mobflix.service.repository.local.VideoDatabase
 import com.example.mobflix.service.repository.remote.RetrofitClient
 import com.example.mobflix.service.repository.remote.YoutubeService
 import com.example.mobflix.ui.viewmodel.MainViewModel
+import com.example.mobflix.ui.viewmodel.VideoEditViewModel
 import com.example.mobflix.ui.viewmodel.VideoRegistrationViewModel
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
@@ -20,6 +21,7 @@ import retrofit2.Retrofit
 val mobflixViewModelModules = module {
     viewModel<MainViewModel> { MainViewModel(get(),get()) }
     viewModel<VideoRegistrationViewModel> { VideoRegistrationViewModel(get(), get(), androidContext()) }
+    viewModel<VideoEditViewModel> { VideoEditViewModel(get(), get(), androidContext()) }
 }
 
 val videoRepositoryModules = module {

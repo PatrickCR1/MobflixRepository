@@ -20,11 +20,12 @@ import com.example.compose.ui.theme.BlueEditText
 import com.example.compose.ui.theme.White
 import com.example.mobflix.R
 import com.example.mobflix.ui.theme.*
+import com.example.mobflix.ui.viewmodel.VideoEditViewModel
 import com.example.mobflix.ui.viewmodel.VideoRegistrationViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun RegistrationFields(viewModel: VideoRegistrationViewModel = getViewModel()) {
+fun EmptyRegistrationFields(viewModel: VideoRegistrationViewModel = getViewModel()) {
     val urlText = viewModel.urlText.observeAsState().value
     val categoryText = viewModel.categoryText.observeAsState().value
     Column() {
@@ -44,9 +45,23 @@ fun RegistrationFields(viewModel: VideoRegistrationViewModel = getViewModel()) {
 }
 
 @Composable
-@Preview
-private fun RegistrationFieldsPreview() {
-    RegistrationFields()
+fun RegistrationFields(viewModel: VideoEditViewModel = getViewModel()) {
+    val urlText = viewModel.urlText.observeAsState().value
+    val categoryText = viewModel.categoryText.observeAsState().value
+    Column() {
+        RegistrationFieldText(name = stringResource(id = R.string.url_registration))
+        RegistrationFieldEditText(stringResource(id = R.string.url_text_hint), urlText!!) {
+            viewModel.onUrlTextChanged(it)
+        }
+        Spacer(modifier = Modifier.height(smallSpacer))
+        RegistrationFieldText(name = stringResource(id = R.string.category_registration))
+        RegistrationFieldEditText(
+            stringResource(id = R.string.category_text_hint),
+            categoryText!!
+        ) {
+            viewModel.onCategoryChanged(it)
+        }
+    }
 }
 
 @Composable
@@ -65,13 +80,6 @@ fun RegistrationFieldText(name: String) {
         lineHeight = 16.sp,
         textAlign = TextAlign.Center
     )
-}
-
-@Preview
-@Composable
-private fun RegistrationFieldTextPreview() {
-    RegistrationFieldText(name = stringResource(id = R.string.url_registration))
-
 }
 
 @Composable
@@ -97,10 +105,30 @@ fun RegistrationFieldEditText(hint: String, text: String, function: (String) -> 
     }
 }
 
+@Composable
+@Preview
+private fun EmptyRegistrationFieldsPreview() {
+    EmptyRegistrationFields()
+}
+
+@Composable
+@Preview
+private fun RegistrationFieldsPreview() {
+    RegistrationFields()
+}
+
 @Preview
 @Composable
 private fun RegistrationFieldEditTextPreview() {
-    RegistrationFieldEditText(stringResource(id = R.string.url_text_hint), "") {
+    RegistrationFieldEditText(hint = stringSample, text = stringSample) {
         exampleFun()
     }
+
+}
+
+@Preview
+@Composable
+private fun RegistrationFieldTextPreview() {
+    RegistrationFieldText(name = stringResource(id = R.string.url_registration))
+
 }

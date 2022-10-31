@@ -13,22 +13,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.compose.ui.theme.BlackBackground
 import com.example.mobflix.R
-import com.example.mobflix.ui.components.EmptyRegistrationFields
+import com.example.mobflix.ui.components.RegistrationFields
 import com.example.mobflix.ui.components.ScreenTitleText
-import com.example.mobflix.ui.components.VideoPreviewSectionRegistrationScreen
+import com.example.mobflix.ui.components.VideoPreviewSectionEditVideoScreen
 import com.example.mobflix.ui.theme.smallSpacer
-import com.example.mobflix.ui.viewmodel.VideoRegistrationViewModel
+import com.example.mobflix.ui.viewmodel.VideoEditViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun RegistrationScreen(viewModel: VideoRegistrationViewModel = getViewModel()) {
+fun VideoEditScreen(viewModel: VideoEditViewModel = getViewModel()) {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
 
     Scaffold(scaffoldState = scaffoldState) { contentPadding ->
         SnackbarHost(hostState = scaffoldState.snackbarHostState) { data ->
-            Snackbar(Modifier.testTag(stringResource(id = R.string.snack_bar))
+            Snackbar(
+                Modifier.testTag(stringResource(id = R.string.snack_bar))
             ) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
@@ -43,11 +44,11 @@ fun RegistrationScreen(viewModel: VideoRegistrationViewModel = getViewModel()) {
                 .background(BlackBackground)
         ) {
             Spacer(Modifier.height(smallSpacer))
-            ScreenTitleText(name = stringResource(id = R.string.video_registration))
+            ScreenTitleText(name = stringResource(id = R.string.video_edit))
             Spacer(Modifier.height(smallSpacer))
-            EmptyRegistrationFields()
+            RegistrationFields()
             Spacer(Modifier.height(smallSpacer))
-            VideoPreviewSectionRegistrationScreen()
+            VideoPreviewSectionEditVideoScreen()
         }
         LaunchedEffect(key1 = Unit) {
             viewModel.snackBar.observeForever {
@@ -66,5 +67,5 @@ fun RegistrationScreen(viewModel: VideoRegistrationViewModel = getViewModel()) {
 @Preview(showSystemUi = true)
 @Composable
 private fun RegistrationScreenPreview() {
-    RegistrationScreen()
+    VideoEditScreen()
 }

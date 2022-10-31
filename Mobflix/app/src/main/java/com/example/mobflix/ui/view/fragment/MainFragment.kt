@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.mobflix.toVideoDatabaseModel
 import com.example.mobflix.ui.screens.HomeScreen
 import com.example.mobflix.ui.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -44,7 +45,14 @@ class MainFragment : Fragment() {
             if (it) {
                 val direction = MainFragmentDirections.actionMainFragmentToVideoRegistrationFragment()
                 findNavController().navigate(direction)
-                viewModel.navigationComplete()
+                viewModel.navigationRegistrationScreenComplete()
+            }
+        }
+        viewModel.videoClick.observe(viewLifecycleOwner) {
+            if (it.url != "") {
+                val direction = MainFragmentDirections.actionMainFragmentToVideoEditFragment(it.toVideoDatabaseModel())
+                findNavController().navigate(direction)
+                viewModel.navigationEditScreenComplete()
             }
         }
     }
