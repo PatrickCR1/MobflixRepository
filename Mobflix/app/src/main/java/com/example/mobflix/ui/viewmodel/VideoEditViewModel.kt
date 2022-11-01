@@ -22,7 +22,7 @@ class VideoEditViewModel(
     private val videoRepository: VideoRepository,
     private val categoryRepository: CategoryRepository,
     private val context: Context
-): ViewModel() {
+) : ViewModel() {
 
     val image = mutableStateOf("")
 
@@ -34,8 +34,11 @@ class VideoEditViewModel(
     private val _categoryText = MutableLiveData<String>("")
     val categoryText: LiveData<String> = _categoryText
 
-    private val _buttonClick = MutableLiveData<Boolean>()
-    val buttonClick: LiveData<Boolean> = _buttonClick
+    private val _editButtonClick = MutableLiveData<Boolean>()
+    val editButtonClick: LiveData<Boolean> = _editButtonClick
+
+    private val _deleteButtonClick = MutableLiveData<Boolean>()
+    val deleteButtonClick: LiveData<Boolean> = _deleteButtonClick
 
     private val _snackBar = MutableLiveData<String>("")
     val snackBar: LiveData<String> = _snackBar
@@ -78,7 +81,7 @@ class VideoEditViewModel(
                 val category = CategoryModel(category = categoryText.value!!)
                 categoryRepository.saveCategory(category)
 
-                _buttonClick.value = true
+                _editButtonClick.value = true
             }
         } else {
             _snackBar.value = context.getString(R.string.ERROR_INVALID_FIELDS)
@@ -86,23 +89,14 @@ class VideoEditViewModel(
     }
 
     fun videoRemove() {
-        if (registrationValidation()) {
-            viewModelScope.launch {
-                val videoId = getVideoId(urlText.value!!)
-                getImage(videoId)
+        viewModelScope.launch {
+            videoRepository.removeVideo(videoModel.id)
 
-                val video = VideoModel(
-                    id = videoModel.id,
-                    url = urlText.value!!,
-                    category = categoryText.value!!,
-                    image = image.value
-                )
-                videoRepository.removeVideo(video)
-
-                _buttonClick.value = true
+            if (videoRepository.checkDelete(videoModel.category)) {
+                categoryRepository.removeCategory(videoModel.category)
             }
-        } else {
-            _snackBar.value = context.getString(R.string.ERROR_INVALID_FIELDS)
+
+            _deleteButtonClick.value = true
         }
     }
 
@@ -129,7 +123,8 @@ class VideoEditViewModel(
     }
 
     fun clickComplete() {
-        _buttonClick.value = false
+        _editButtonClick.value = false
+        _deleteButtonClick.value = false
     }
 
     suspend fun getImage(id: String) {

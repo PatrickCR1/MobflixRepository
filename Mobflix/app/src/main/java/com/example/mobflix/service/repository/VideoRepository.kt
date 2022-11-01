@@ -61,18 +61,37 @@ class VideoRepository(
         return videoList
     }
 
+    suspend fun getFilteredVideoList(category: String): List<VideoModel> {
+        val list = categoryRepository.getCategoryList()
+        val videoDBList = dao.filteredVideoList(category)
+        val videoList = videoDBList.map { videoDBModel ->
+            var videoColor = Color.Cyan
+            list.forEach {
+                if (videoDBModel.category == it.category) {
+                    videoColor = it.color
+                }
+            }
+            videoDBModel.toVideoModel(videoColor)
+        }
+        return videoList
+    }
+
     suspend fun saveVideo(video: VideoModel) {
         val videoDB = video.toVideoDatabaseModel()
         dao.save(videoDB)
     }
 
-    suspend fun removeVideo(video: VideoModel) {
-        val videoDB = video.toVideoDatabaseModel()
-        dao.remove(videoDB.id)
+    suspend fun removeVideo(videoId: Int) {
+        dao.remove(videoId)
     }
 
     suspend fun updateVideo(video: VideoModel) {
         val videoDB = video.toVideoDatabaseModel()
         dao.updateVideo(videoDB)
+    }
+
+    suspend fun checkDelete(category: String): Boolean {
+        val list = getFilteredVideoList(category)
+        return list.isEmpty()
     }
 }

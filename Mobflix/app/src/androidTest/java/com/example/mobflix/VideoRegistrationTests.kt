@@ -18,7 +18,7 @@ class VideoRegistrationTests {
 
     @Before
     fun settingEnvironment() {
-        VideoDatabase.getDatabase(InstrumentationRegistry.getInstrumentation().targetContext).clearAllTables()
+        clearDatabase()
     }
 
     val validUrl = "https://youtu.be/ijgYsmthKWU"
@@ -58,13 +58,6 @@ class VideoRegistrationTests {
     }
 
     @Test
-    fun WhenUrlAndCategoryAreValidTheSnackBarShouldNotBeDisplayedAndTheTestShouldFail() {
-        val snackBarString = composeTestRule.activity.getString(R.string.ERROR_INVALID_FIELDS)
-        createNewVideo(validUrl, validCategory1)
-        composeTestRule.onNodeWithText(snackBarString).assertIsDisplayed()
-    }
-
-    @Test
     fun WhenUrlIsInvalidShouldShowSnackBar() {
         val snackBarString = composeTestRule.activity.getString(R.string.ERROR_INVALID_FIELDS)
         createNewVideo(invalidUrl, validCategory1)
@@ -87,7 +80,8 @@ class VideoRegistrationTests {
 
     @Test
     fun WhenCreatingTwoVideosWithDifferentCategoriesShouldDisplayTwoCategoryIcons() {
-        VideoDatabase.getDatabase(InstrumentationRegistry.getInstrumentation().targetContext).clearAllTables()
+        clearDatabase()
+        sleep(500)
         val videoCategoryClickableString = composeTestRule.activity.getString(R.string.video_category_clickable)
         createNewVideo(validUrl, validCategory1)
         sleep(500)
@@ -98,7 +92,7 @@ class VideoRegistrationTests {
 
     @Test
     fun WhenCreatingTwoVideosWithSameCategoryShouldDisplayOneCategoryIcon() {
-        VideoDatabase.getDatabase(InstrumentationRegistry.getInstrumentation().targetContext).clearAllTables()
+        clearDatabase()
         val videoCategoryClickableString = composeTestRule.activity.getString(R.string.video_category_clickable)
         createNewVideo(validUrl, validCategory1)
         sleep(500)
@@ -109,7 +103,8 @@ class VideoRegistrationTests {
 
     @Test
     fun WhenCreatingVideosShouldBeDisplayedOnVideoList() {
-        VideoDatabase.getDatabase(InstrumentationRegistry.getInstrumentation().targetContext).clearAllTables()
+        clearDatabase()
+        sleep(500)
         val videoCategoryString = composeTestRule.activity.getString(R.string.video_category)
         val videoCardString = composeTestRule.activity.getString(R.string.video_card)
         createNewVideo(validUrl, validCategory1)
@@ -118,5 +113,10 @@ class VideoRegistrationTests {
         sleep(500)
         composeTestRule.onAllNodesWithTag(videoCategoryString).assertCountEquals(2)
         composeTestRule.onAllNodesWithTag(videoCardString).assertCountEquals(2)
+    }
+
+    private fun clearDatabase() {
+        VideoDatabase.getDatabase(InstrumentationRegistry.getInstrumentation().targetContext)
+            .clearAllTables()
     }
 }

@@ -5,6 +5,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.mobflix.service.repository.CategoryRepository
 import com.example.mobflix.service.repository.VideoRepository
 import com.example.mobflix.ui.components.categoryListSample
+import com.example.mobflix.ui.components.stringSample
 import com.example.mobflix.ui.components.videoListSample
 import com.example.mobflix.ui.viewmodel.MainViewModel
 import io.mockk.coEvery
@@ -41,6 +42,22 @@ class MainViewModelTests {
 
         //Act
         viewModel.getVideoList()
+
+        val returnValue = viewModel.videoList.getOrAwaitValue()
+
+        //Assert
+        assertEquals(videoListSample, returnValue)
+
+    }
+
+    @Test
+    fun shouldChangeVideoListValueWhenCallingFilteredGetVideoList() = runBlocking {
+
+        // Arrange
+        coEvery {videoRepository.getFilteredVideoList(any())} returns videoListSample
+
+        //Act
+        viewModel.getFilteredVideoList(stringSample)
 
         val returnValue = viewModel.videoList.getOrAwaitValue()
 

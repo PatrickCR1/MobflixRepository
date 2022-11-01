@@ -62,20 +62,18 @@ class VideoEditViewModelTests {
             categoryRepository.saveCategory(any())
         }
 
-        val returnValue = viewModel.buttonClick.getOrAwaitValue()
+        val returnValue = viewModel.editButtonClick.getOrAwaitValue()
         Assert.assertEquals(true, returnValue)
     }
 
     @Test
-    fun validFieldsShouldCallRepositoryRemoveFunctionsAndChangeClickValue() = runBlocking {
+    fun buttonClickShouldCallRepositoryRemoveFunctionsAndChangeClickValue() = runBlocking {
         // Arrange
-        coEvery { videoRepository.getThumbnailImage(any(), any()) } returns Unit
         coEvery { videoRepository.removeVideo(any()) } returns Unit
+        coEvery { videoRepository.checkDelete(any()) } returns false
 
         //Act
         viewModel.setVideoModel(videoModel)
-        viewModel.onUrlTextChanged("https://youtu.be/ijgYsmthKWU")
-        viewModel.onCategoryChanged("Mobile")
         viewModel.videoRemove()
 
         //Assert
@@ -83,8 +81,44 @@ class VideoEditViewModelTests {
             videoRepository.removeVideo(any())
         }
 
-        val returnValue = viewModel.buttonClick.getOrAwaitValue()
+        val returnValue = viewModel.deleteButtonClick.getOrAwaitValue()
         Assert.assertEquals(true, returnValue)
+    }
+
+    @Test
+    fun deleteCategoryShouldCallDaoDeleteIfNoVideoExists() = runBlocking {
+        // Arrange
+        coEvery { categoryRepository.removeCategory(any()) } returns Unit
+        coEvery { videoRepository.removeVideo(any()) } returns Unit
+        coEvery { videoRepository.checkDelete(any()) } returns true
+
+
+        // Act
+        viewModel.setVideoModel(videoModel)
+        viewModel.videoRemove()
+
+        // Assert
+        coVerify() {
+            categoryRepository.removeCategory(any())
+        }
+    }
+
+    @Test
+    fun deleteCategoryShouldNotCallDaoDeleteIfVideoExists() = runBlocking {
+        // Arrange
+        coEvery { categoryRepository.removeCategory(any()) } returns Unit
+        coEvery { videoRepository.removeVideo(any()) } returns Unit
+        coEvery { videoRepository.checkDelete(any()) } returns false
+
+
+        // Act
+        viewModel.setVideoModel(videoModel)
+        viewModel.videoRemove()
+
+        // Assert
+        coVerify(inverse = true) {
+            categoryRepository.removeCategory(any())
+        }
     }
 
     @Test
@@ -143,8 +177,11 @@ class VideoEditViewModelTests {
         viewModel.clickComplete()
 
         // Assert
-        val returnValue = viewModel.buttonClick.getOrAwaitValue()
-        Assert.assertEquals(false, returnValue)
+        val returnEditValue = viewModel.editButtonClick.getOrAwaitValue()
+        Assert.assertEquals(false, returnEditValue)
+
+        val returnDeleteValue = viewModel.deleteButtonClick.getOrAwaitValue()
+        Assert.assertEquals(false, returnDeleteValue)
     }
 
     @Test

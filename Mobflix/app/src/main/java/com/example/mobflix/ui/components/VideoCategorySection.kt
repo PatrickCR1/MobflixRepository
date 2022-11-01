@@ -27,7 +27,9 @@ fun VideoCategorySection(viewModel: MainViewModel = getViewModel()) {
     ) {
         if (!categoryList!!.isEmpty()) {
             items(categoryList!!) {
-                VideoCategoryClickable(name = it.category, backgroundColor = it.color)
+                VideoCategoryClickable(name = it.category, backgroundColor = it.color) {
+                    viewModel.getFilteredVideoList(it.category)
+                }
             }
         } else {
             items(1) {

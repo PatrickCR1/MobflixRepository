@@ -15,6 +15,9 @@ interface VideoDAO {
     @Query("SELECT * FROM Video")
     suspend fun videoList(): List<VideoDatabaseModel>
 
+    @Query("SELECT * FROM Video WHERE category = :category")
+    suspend fun filteredVideoList(category: String): List<VideoDatabaseModel>
+
     @Query("DELETE FROM Video WHERE id = :id")
     suspend fun remove(id: Int)
 

@@ -41,6 +41,8 @@ val thumbnailSample = "http://i3.ytimg.com/vi/ijgYsmthKWU/hqdefault.jpg"
 
 val stringSample = ""
 
+val intSample = 0
+
 val sampleMutableLiveData = MutableLiveData<String>()
 
 fun exampleFun() {}

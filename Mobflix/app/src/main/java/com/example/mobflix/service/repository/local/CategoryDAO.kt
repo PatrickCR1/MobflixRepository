@@ -14,6 +14,9 @@ interface CategoryDAO {
     @Query("SELECT * FROM Category")
     suspend fun list(): List<CategoryDatabaseModel>
 
+    @Query("DELETE FROM Category WHERE category = :category")
+    suspend fun remove(category: String)
+
     @Query("DELETE FROM Category")
     fun clear()
 }

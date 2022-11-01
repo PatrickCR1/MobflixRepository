@@ -15,10 +15,11 @@ import com.example.mobflix.ui.screens.VideoEditScreen
 import com.example.mobflix.ui.viewmodel.VideoEditViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class VideoEditFragment: Fragment() {
+class VideoEditFragment : Fragment() {
 
     // ViewModel
     private val viewModel: VideoEditViewModel by viewModel()
+
     // Args
     private val args by navArgs<VideoEditFragmentArgs>()
 
@@ -34,8 +35,6 @@ class VideoEditFragment: Fragment() {
         val video = args.videoModel.toVideoModel(Color.Cyan)
         viewModel.setVideoModel(video)
 
-        viewModel.getVideoPreview()
-
         return ComposeView(requireContext()).apply {
             setContent {
                 VideoEditLayout()
@@ -43,8 +42,13 @@ class VideoEditFragment: Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getVideoPreview()
+    }
+
     private fun observe() {
-        viewModel.buttonClick.observe(viewLifecycleOwner) {
+        viewModel.editButtonClick.observe(viewLifecycleOwner) {
             if (it) {
                 if (viewModel.checkImage()) {
                     findNavController().popBackStack()
@@ -52,6 +56,12 @@ class VideoEditFragment: Fragment() {
                 } else {
                     viewModel.showSnackBar()
                 }
+            }
+        }
+        viewModel.deleteButtonClick.observe(viewLifecycleOwner) {
+            if (it) {
+                findNavController().popBackStack()
+                viewModel.clickComplete()
             }
         }
     }

@@ -2,9 +2,7 @@ package com.example.mobflix
 
 import com.example.mobflix.service.repository.CategoryRepository
 import com.example.mobflix.service.repository.local.CategoryDAO
-import com.example.mobflix.ui.components.categoryDatabaseListSample
-import com.example.mobflix.ui.components.categoryModelSample
-import com.example.mobflix.ui.components.categoryModelSample2
+import com.example.mobflix.ui.components.*
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -50,6 +48,20 @@ class CategoryRepositoryTests {
 
         // Assert
         Assert.assertTrue(returnedValue)
+    }
+
+    @Test
+    fun deleteCategoryShouldCallDaoDelete() = runBlocking {
+        // Arrange
+        coEvery { dao.remove(any()) } returns Unit
+
+        // Act
+        categoryRepository.removeCategory(stringSample)
+
+        // Assert
+        coVerify {
+            dao.remove(any())
+        }
     }
 
     @Test

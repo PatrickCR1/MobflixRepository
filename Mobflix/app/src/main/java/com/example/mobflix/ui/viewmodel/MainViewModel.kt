@@ -35,6 +35,12 @@ class MainViewModel(
         }
     }
 
+    fun getFilteredVideoList(category: String) {
+        viewModelScope.launch {
+            _videoList.value = videoRepository.getFilteredVideoList(category)
+        }
+    }
+
     fun getCategoryList() {
         viewModelScope.launch {
             _categoryList.value = categoryRepository.getCategoryList()

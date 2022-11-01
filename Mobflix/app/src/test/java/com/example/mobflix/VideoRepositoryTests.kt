@@ -64,6 +64,32 @@ class VideoRepositoryTests {
     }
 
     @Test
+    fun filteredGetVideoListShouldCallDaoList() = runBlocking {
+        // Arrange
+        coEvery { videoDao.filteredVideoList(any()) } returns videoDatabaseListSample
+        coEvery { categoryRepository.getCategoryList() } returns categoryListSample
+
+        val list = categoryRepository.getCategoryList()
+
+        // Act
+        val returnedValue = videoRepository.getFilteredVideoList(stringSample)
+        val videoList = videoDatabaseListSample.map { videoDBModel ->
+            var videoColor = Color.Cyan
+            list.forEach {
+                if (videoDBModel.category == it.category) {
+                    videoColor = it.color
+                }
+            }
+            videoDBModel.toVideoModel(videoColor)
+        }
+        // Assert
+        Assert.assertEquals(videoList, returnedValue)
+        coVerify {
+            videoDao.filteredVideoList(any())
+        }
+    }
+
+    @Test
     fun saveVideoShouldCallDaoSave() = runBlocking {
         // Arrange
         coEvery { videoDao.save(any()) } returns Unit
@@ -83,7 +109,7 @@ class VideoRepositoryTests {
         coEvery { videoDao.remove(any()) } returns Unit
 
         // Act
-        videoRepository.removeVideo(videoModelSample)
+        videoRepository.removeVideo(intSample)
 
         // Assert
         coVerify {

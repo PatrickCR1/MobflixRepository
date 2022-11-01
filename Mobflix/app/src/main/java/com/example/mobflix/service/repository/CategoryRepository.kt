@@ -20,6 +20,10 @@ class CategoryRepository(private val dao: CategoryDAO) {
         }
     }
 
+    suspend fun removeCategory(category: String) {
+            dao.remove(category)
+    }
+
     suspend fun checkSave(name: String): Boolean {
         val list = getCategoryList()
         var add = true

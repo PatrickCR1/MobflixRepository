@@ -47,10 +47,10 @@ fun VideoCategory(name: String, backgroundColor: Color) {
 }
 
 @Composable
-fun VideoCategoryClickable(name: String, backgroundColor: Color) {
+fun VideoCategoryClickable(name: String, backgroundColor: Color, function: () -> Unit) {
     Surface(
         Modifier
-            .clickable { }
+            .clickable (onClick = function)
             .testTag(stringResource(id = R.string.video_category_clickable)),
         shape = RoundedCornerShape(mediumCornerShape)
     ) {
@@ -60,7 +60,7 @@ fun VideoCategoryClickable(name: String, backgroundColor: Color) {
                 .background(backgroundColor)
                 .padding(top = 7.dp, bottom = 6.dp, start = 23.dp, end = 22.dp)
                 .sizeIn(minWidth = 69.dp, minHeight = 19.dp)
-                .clickable { },
+                .clickable (onClick = function),
             fontFamily = robotoFamily,
             fontWeight = FontWeight(normalLightFontWeight),
             fontSize = 16.sp,
