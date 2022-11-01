@@ -1,5 +1,6 @@
 package com.example.mobflix
 
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -9,9 +10,8 @@ import com.example.mobflix.ui.view.activity.MainActivity
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.lang.Thread.*
 
-class VideoUpdateTests {
+class NavigationTests {
 
     @get: Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()
@@ -21,7 +21,7 @@ class VideoUpdateTests {
         VideoDatabase.getDatabase(InstrumentationRegistry.getInstrumentation().targetContext)
             .clearAllTables()
         createNewVideo(validUrl, validCategory)
-        sleep(500)
+        Thread.sleep(500)
     }
 
     val validUrl = "https://youtu.be/ijgYsmthKWU"
@@ -41,30 +41,26 @@ class VideoUpdateTests {
     }
 
     @Test
-    fun whenWritingCategoryShouldShowCategoryNameInPreview() {
-        val videoCardString = composeTestRule.activity.getString(R.string.video_card)
-        val registrationEditTextString =
-            composeTestRule.activity.getString(R.string.registration_field_edit_text)
-        val videoCategoryString = composeTestRule.activity.getString(R.string.video_category)
-        composeTestRule.onAllNodesWithTag(videoCardString)[0].performSemanticsAction(
-            SemanticsActions.OnLongClick
-        )
-        composeTestRule.onAllNodesWithTag(registrationEditTextString)[1].performTextInput(
-            validCategory
-        )
-        composeTestRule.onNodeWithTag(videoCategoryString).assertIsDisplayed()
+    fun whenClickFABButtonShouldNavigateToVideoRegistrationScreen() {
+        val fabTagString = composeTestRule.activity.getString(R.string.floating_action_button_tag)
+        val videoRegistrationString = composeTestRule.activity.getString(R.string.video_registration)
+        composeTestRule.onNodeWithTag(fabTagString).performClick()
+        composeTestRule.onNodeWithText(videoRegistrationString).assertIsDisplayed()
     }
 
     @Test
-    fun whenUrlAndCategoryAreValidTheVideoShouldBeUpdatedAndReturnToHomeScreen() {
+    fun WhenLongClickVideoCardShouldNavigateToVideoEditScreen() {
         val videoCardString = composeTestRule.activity.getString(R.string.video_card)
-        val registrationButtonString =
-            composeTestRule.activity.getString(R.string.registration_button)
-        val appNameString = composeTestRule.activity.getString(R.string.app_name)
+        val videoEditString = composeTestRule.activity.getString(R.string.video_edit)
         composeTestRule.onAllNodesWithTag(videoCardString)[0].performSemanticsAction(
             SemanticsActions.OnLongClick)
-        composeTestRule.onAllNodesWithTag(registrationButtonString)[0].performClick()
-        sleep(500)
-        composeTestRule.onNodeWithText(appNameString).assertIsDisplayed()
+        composeTestRule.onNodeWithText(videoEditString).assertIsDisplayed()
+    }
+
+    @Test
+    fun WhenClickVideoCardShouldNavigateToYoutube() {
+        val videoCardString = composeTestRule.activity.getString(R.string.video_card)
+        composeTestRule.onAllNodesWithTag(videoCardString)[0].performSemanticsAction(
+            SemanticsActions.OnClick)
     }
 }

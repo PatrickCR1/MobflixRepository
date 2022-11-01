@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -14,8 +15,8 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun HomeScreen(viewModel: MainViewModel = getViewModel()) {
-
-    Scaffold(floatingActionButton = { FabIcon(onClick = {viewModel.navigationRegistrationScreen()})}) { contentPadding ->
+    val videoList = viewModel.videoList.observeAsState().value
+    Scaffold(floatingActionButton = { FabIcon(onClick = { viewModel.navigationRegistrationScreen() }) }) { contentPadding ->
         Column(
             Modifier
                 .fillMaxSize()
@@ -23,7 +24,10 @@ fun HomeScreen(viewModel: MainViewModel = getViewModel()) {
                 .background(BlackBackground)
         ) {
             AppName()
-            HighlightVideo(videoModel = videoModelSample)
+            if (!videoList!!.isEmpty()) {
+                HighlightVideo(videoModel = viewModel.getVideoAtRandom())
+            } else
+                HighlightVideo(videoModel = videoModelSample)
             Spacer(modifier = Modifier.height(16.dp))
             VideoCategorySection()
             Spacer(modifier = Modifier.height(8.dp))

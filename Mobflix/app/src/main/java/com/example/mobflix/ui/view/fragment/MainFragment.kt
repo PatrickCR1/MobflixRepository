@@ -1,5 +1,7 @@
 package com.example.mobflix.ui.view.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,16 +45,25 @@ class MainFragment : Fragment() {
     private fun observe() {
         viewModel.fabClick.observe(viewLifecycleOwner) {
             if (it) {
-                val direction = MainFragmentDirections.actionMainFragmentToVideoRegistrationFragment()
+                val direction =
+                    MainFragmentDirections.actionMainFragmentToVideoRegistrationFragment()
                 findNavController().navigate(direction)
                 viewModel.navigationRegistrationScreenComplete()
             }
         }
         viewModel.videoClick.observe(viewLifecycleOwner) {
             if (it.url != "") {
-                val direction = MainFragmentDirections.actionMainFragmentToVideoEditFragment(it.toVideoDatabaseModel())
+                val direction =
+                    MainFragmentDirections.actionMainFragmentToVideoEditFragment(it.toVideoDatabaseModel())
                 findNavController().navigate(direction)
                 viewModel.navigationEditScreenComplete()
+            }
+        }
+        viewModel.urlYoutubeNavigation.observe(viewLifecycleOwner) {
+            if (it != "") {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
+                startActivity(intent)
+                viewModel.navigationYoutubeComplete()
             }
         }
     }

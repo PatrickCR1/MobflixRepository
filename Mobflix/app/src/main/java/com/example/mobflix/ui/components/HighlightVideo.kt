@@ -26,9 +26,11 @@ import com.example.mobflix.service.model.video.VideoModel
 import com.example.mobflix.ui.theme.mediumCornerShape
 import com.example.mobflix.ui.theme.normalLightFontWeight
 import com.example.mobflix.ui.theme.robotoFamily
+import com.example.mobflix.ui.viewmodel.MainViewModel
+import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun HighlightVideo(videoModel: VideoModel) {
+fun HighlightVideo(videoModel: VideoModel, viewModel: MainViewModel = getViewModel()) {
     Box(
         modifier = Modifier
             .testTag(stringResource(id = R.string.highlight_video_box))
@@ -45,7 +47,9 @@ fun HighlightVideo(videoModel: VideoModel) {
             Modifier
                 .offset(y = 26.dp)
                 .align(Alignment.Center)
-                .clickable { },
+                .clickable {
+                           viewModel.navigationYoutube(videoModel.url)
+                },
             shape = RoundedCornerShape(mediumCornerShape)
 
         ) {
@@ -55,7 +59,7 @@ fun HighlightVideo(videoModel: VideoModel) {
                     .background(BlueBackgroundVideoCategory)
                     .padding(top = 10.dp, bottom = 11.dp, start = 9.dp, end = 9.dp)
                     .sizeIn(minWidth = 69.dp, minHeight = 19.dp)
-                    .clickable { },
+                    .clickable {viewModel.navigationYoutube(videoModel.url)},
                 fontFamily = robotoFamily,
                 fontWeight = FontWeight(normalLightFontWeight),
                 fontSize = 18.sp,

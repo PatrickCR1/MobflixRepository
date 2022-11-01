@@ -1,5 +1,7 @@
 package com.example.mobflix.ui.viewmodel
 
+import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,6 +29,9 @@ class MainViewModel(
 
     private val _videoClick = MutableLiveData<VideoModel>()
     val videoClick: LiveData<VideoModel> = _videoClick
+
+    private val _urlYoutubeNavigation = MutableLiveData<String>()
+    val urlYoutubeNavigation: LiveData<String> = _urlYoutubeNavigation
 
     // Get List
     fun getVideoList() {
@@ -61,5 +66,15 @@ class MainViewModel(
 
     fun navigationEditScreenComplete() {
         _videoClick.value = VideoModel()
+    }
+
+    fun navigationYoutube(url: String) {
+        _urlYoutubeNavigation.value = url
+    }
+    fun navigationYoutubeComplete() {
+        _urlYoutubeNavigation.value = ""
+    }
+    fun getVideoAtRandom(): VideoModel {
+        return _videoList.value!!.random()
     }
 }

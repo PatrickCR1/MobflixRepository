@@ -7,11 +7,13 @@ import com.example.mobflix.service.repository.VideoRepository
 import com.example.mobflix.ui.components.categoryListSample
 import com.example.mobflix.ui.components.stringSample
 import com.example.mobflix.ui.components.videoListSample
+import com.example.mobflix.ui.components.videoModelSample
 import com.example.mobflix.ui.viewmodel.MainViewModel
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertSame
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -35,10 +37,22 @@ class MainViewModelTests {
     val videoRepository = mockk<VideoRepository>()
 
     @Test
+    fun shouldChangeYoutubeValueWhenCallingNavigationYoutube() {
+
+        //Act
+        viewModel.navigationYoutube(stringSample)
+
+        val returnValue = viewModel.urlYoutubeNavigation.getOrAwaitValue()
+
+        //Assert
+        assertEquals(stringSample, returnValue)
+    }
+
+    @Test
     fun shouldChangeVideoListValueWhenCallingGetVideoList() = runBlocking {
 
         // Arrange
-        coEvery {videoRepository.getVideoList()} returns videoListSample
+        coEvery { videoRepository.getVideoList() } returns videoListSample
 
         //Act
         viewModel.getVideoList()
@@ -54,7 +68,7 @@ class MainViewModelTests {
     fun shouldChangeVideoListValueWhenCallingFilteredGetVideoList() = runBlocking {
 
         // Arrange
-        coEvery {videoRepository.getFilteredVideoList(any())} returns videoListSample
+        coEvery { videoRepository.getFilteredVideoList(any()) } returns videoListSample
 
         //Act
         viewModel.getFilteredVideoList(stringSample)
@@ -63,9 +77,7 @@ class MainViewModelTests {
 
         //Assert
         assertEquals(videoListSample, returnValue)
-
     }
-
 
     @Test
     fun shouldChangeCategoryListValueWhenCallingGetCategoryList() = runBlocking {
@@ -88,7 +100,7 @@ class MainViewModelTests {
         viewModel.navigationRegistrationScreen()
 
         //Assert
-        viewModel.fabClick.observeForever{
+        viewModel.fabClick.observeForever {
             assertEquals(true, it)
         }
     }
@@ -99,8 +111,23 @@ class MainViewModelTests {
         viewModel.navigationRegistrationScreenComplete()
 
         //Assert
-        viewModel.fabClick.observeForever{
+        viewModel.fabClick.observeForever {
             assertEquals(false, it)
         }
+    }
+
+    @Test
+    fun shouldReturnRandomVideoWhenCallingGetVideoAtRandom() = runBlocking {
+        // Arrange
+        coEvery { videoRepository.getVideoList() } returns videoListSample
+
+        //Act
+        viewModel.getVideoList()
+        val returnValue = viewModel.videoList.getOrAwaitValue()
+        val randomVideoModel = returnValue.random()
+        val videoModel = videoModelSample
+
+        //Assert
+        assertSame(videoModel, randomVideoModel)
     }
 }

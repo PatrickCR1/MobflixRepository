@@ -122,8 +122,11 @@ class VideoEditViewModel(
         }
     }
 
-    fun clickComplete() {
+    fun clickEditComplete() {
         _editButtonClick.value = false
+    }
+
+    fun clickDeleteComplete() {
         _deleteButtonClick.value = false
     }
 

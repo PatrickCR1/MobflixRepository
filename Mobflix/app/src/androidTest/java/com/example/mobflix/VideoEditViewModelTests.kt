@@ -172,14 +172,21 @@ class VideoEditViewModelTests {
     }
 
     @Test
-    fun whenClickCompleteIsCalledShouldChangeClickValueToFalse() {
+    fun whenClickEditCompleteIsCalledShouldChangeClickValueToFalse() {
         // Act
-        viewModel.clickComplete()
+        viewModel.clickEditComplete()
 
         // Assert
         val returnEditValue = viewModel.editButtonClick.getOrAwaitValue()
         Assert.assertEquals(false, returnEditValue)
+    }
 
+    @Test
+    fun whenClickDeleteCompleteIsCalledShouldChangeClickValueToFalse() {
+        // Act
+        viewModel.clickDeleteComplete()
+
+        // Assert
         val returnDeleteValue = viewModel.deleteButtonClick.getOrAwaitValue()
         Assert.assertEquals(false, returnDeleteValue)
     }

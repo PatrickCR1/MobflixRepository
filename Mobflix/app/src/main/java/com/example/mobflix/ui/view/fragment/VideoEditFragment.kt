@@ -52,7 +52,7 @@ class VideoEditFragment : Fragment() {
             if (it) {
                 if (viewModel.checkImage()) {
                     findNavController().popBackStack()
-                    viewModel.clickComplete()
+                    viewModel.clickEditComplete()
                 } else {
                     viewModel.showSnackBar()
                 }
@@ -61,7 +61,7 @@ class VideoEditFragment : Fragment() {
         viewModel.deleteButtonClick.observe(viewLifecycleOwner) {
             if (it) {
                 findNavController().popBackStack()
-                viewModel.clickComplete()
+                viewModel.clickDeleteComplete()
             }
         }
     }

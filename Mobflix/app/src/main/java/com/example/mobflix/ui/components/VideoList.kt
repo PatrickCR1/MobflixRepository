@@ -71,7 +71,7 @@ fun VideoRow(videoModel: VideoModel, viewModel: MainViewModel = getViewModel()) 
             backgroundColor = videoModel.categoryColor
         )
     }
-    VideoCard(videoModel = videoModel, onClick = {}, onLongClick = {viewModel.navigationEditScreen(videoModel)})
+    VideoCard(videoModel = videoModel, onClick = {viewModel.navigationYoutube(videoModel.url)}, onLongClick = {viewModel.navigationEditScreen(videoModel)})
 }
 
 @Composable
