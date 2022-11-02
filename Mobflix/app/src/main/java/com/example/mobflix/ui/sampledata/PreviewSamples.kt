@@ -8,7 +8,8 @@ import com.example.mobflix.service.model.video.VideoModel
 
 val videoModelSample = VideoModel(
     url = "https://youtu.be/ijgYsmthKWU",
-    image = "https://i.ytimg.com/vi/2t8ycK8D4Rk/maxresdefault.jpg"
+    image = "https://i.ytimg.com/vi/2t8ycK8D4Rk/maxresdefault.jpg",
+    favorite = false
 )
 
 val videoDatabaseModelSample = VideoDatabaseModel(

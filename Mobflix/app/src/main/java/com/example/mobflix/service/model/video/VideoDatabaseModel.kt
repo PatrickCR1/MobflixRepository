@@ -27,4 +27,10 @@ data class VideoDatabaseModel(
     @SerializedName("category")
     @ColumnInfo(name = "category")
     val category: String = "",
+
+    @SerializedName("favorite")
+    @ColumnInfo(name = "favorite")
+    val favorite: Int = 0,
+
+
 ) : Parcelable

@@ -1,7 +1,5 @@
 package com.example.mobflix.ui.viewmodel
 
-import android.content.Intent
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -33,16 +31,17 @@ class MainViewModel(
     private val _urlYoutubeNavigation = MutableLiveData<String>()
     val urlYoutubeNavigation: LiveData<String> = _urlYoutubeNavigation
 
+
     // Get List
     fun getVideoList() {
         viewModelScope.launch {
-            _videoList.value = videoRepository.getVideoList()
+            _videoList.value = videoRepository.getVideoList().sortedByDescending { it.favorite }
         }
     }
 
     fun getFilteredVideoList(category: String) {
         viewModelScope.launch {
-            _videoList.value = videoRepository.getFilteredVideoList(category)
+            _videoList.value = videoRepository.getFilteredVideoList(category).sortedByDescending { it.favorite }
         }
     }
 
@@ -71,10 +70,23 @@ class MainViewModel(
     fun navigationYoutube(url: String) {
         _urlYoutubeNavigation.value = url
     }
+
     fun navigationYoutubeComplete() {
         _urlYoutubeNavigation.value = ""
     }
+
     fun getVideoAtRandom(): VideoModel {
         return _videoList.value!!.random()
+    }
+
+    fun getFavoriteVideoAtRandom(): VideoModel {
+        return _videoList.value!!.filter { it.favorite }.random()
+    }
+
+    fun isVideoFavorite(video: VideoModel) {
+        video.favorite = !video.favorite
+        viewModelScope.launch {
+            videoRepository.updateVideo(video)
+        }
     }
 }

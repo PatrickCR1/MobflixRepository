@@ -12,6 +12,7 @@ fun VideoModel.toVideoDatabaseModel() = VideoDatabaseModel(
     url = url,
     image = image,
     category = category,
+    favorite = if (favorite) 1 else 0
 )
 
 fun VideoDatabaseModel.toVideoModel(color: Color) = VideoModel(
@@ -20,6 +21,7 @@ fun VideoDatabaseModel.toVideoModel(color: Color) = VideoModel(
     image = image,
     category = category,
     categoryColor = color,
+    favorite = favorite == 1
 )
 
 fun CategoryModel.toCategoryDatabaseModel() = CategoryDatabaseModel(

@@ -12,6 +12,7 @@ import com.example.mobflix.ui.viewmodel.MainViewModel
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertSame
 import org.junit.Before
@@ -129,5 +130,17 @@ class MainViewModelTests {
 
         //Assert
         assertSame(videoModel, randomVideoModel)
+    }
+
+    @Test
+    fun shouldChangeFavoriteValueWhenCallingIsFavorite() = runBlocking {
+        // Arrange
+        coEvery { videoRepository.updateVideo(any()) } returns Unit
+
+        //Act
+        viewModel.isVideoFavorite(videoModelSample)
+
+        //Assert
+        Assert.assertTrue(videoModelSample.favorite)
     }
 }

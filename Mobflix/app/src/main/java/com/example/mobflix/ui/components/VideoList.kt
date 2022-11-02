@@ -66,10 +66,13 @@ fun VideoRow(videoModel: VideoModel, viewModel: MainViewModel = getViewModel()) 
             ),
         verticalArrangement = Arrangement.spacedBy(smallSpacedBy)
     ) {
-        VideoCategory(
-            name = videoModel.category,
-            backgroundColor = videoModel.categoryColor
-        )
+        Row {
+            VideoCategory(
+                name = videoModel.category,
+                backgroundColor = videoModel.categoryColor)
+            Spacer(modifier = Modifier.width(smallPadding))
+            FavoriteButton(video = videoModel)
+        }
     }
     VideoCard(videoModel = videoModel, onClick = {viewModel.navigationYoutube(videoModel.url)}, onLongClick = {viewModel.navigationEditScreen(videoModel)})
 }
@@ -102,7 +105,7 @@ fun VideoCard(videoModel: VideoModel, onClick: () -> Unit, onLongClick: () -> Un
         modifier = Modifier
             .padding(start = smallPadding, end = smallPadding, top = verySmallPadding)
             .testTag(stringResource(id = R.string.video_card))
-            .combinedClickable (onClick = onClick, onLongClick = onLongClick), contentAlignment = Alignment.Center
+            .combinedClickable(onClick = onClick, onLongClick = onLongClick), contentAlignment = Alignment.Center
     ) {
         Image(
             painter = rememberAsyncImagePainter(model = videoModel.image), modifier = Modifier

@@ -24,10 +24,13 @@ fun HomeScreen(viewModel: MainViewModel = getViewModel()) {
                 .background(BlackBackground)
         ) {
             AppName()
-            if (!videoList!!.isEmpty()) {
+            if (!videoList!!.filter { it.favorite }.isEmpty()) {
+                HighlightVideo(videoModel = viewModel.getFavoriteVideoAtRandom())
+            } else if (!videoList!!.isEmpty()){
                 HighlightVideo(videoModel = viewModel.getVideoAtRandom())
-            } else
+            } else {
                 HighlightVideo(videoModel = videoModelSample)
+                }
             Spacer(modifier = Modifier.height(16.dp))
             VideoCategorySection()
             Spacer(modifier = Modifier.height(8.dp))

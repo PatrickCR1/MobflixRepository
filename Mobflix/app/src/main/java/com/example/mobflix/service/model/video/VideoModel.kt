@@ -8,4 +8,5 @@ data class VideoModel (
     val image: String = "",
     val category: String = "",
     val categoryColor: Color = Color.Cyan,
+    var favorite: Boolean = false,
         )
