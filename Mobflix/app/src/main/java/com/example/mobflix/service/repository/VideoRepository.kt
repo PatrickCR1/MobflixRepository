@@ -9,7 +9,6 @@ import com.example.mobflix.service.repository.local.VideoDAO
 import com.example.mobflix.service.repository.remote.YoutubeService
 import com.example.mobflix.toVideoDatabaseModel
 import com.example.mobflix.toVideoModel
-import com.google.gson.Gson
 import retrofit2.Response
 
 class VideoRepository(
@@ -27,7 +26,7 @@ class VideoRepository(
         }
     }
 
-    fun responseSucessful(
+    private fun responseSucessful(
         response: Response<TopResponse>,
         listener: APIListener<String>
     ) {

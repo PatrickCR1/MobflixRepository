@@ -32,5 +32,4 @@ data class VideoDatabaseModel(
     @ColumnInfo(name = "favorite")
     val favorite: Int = 0,
 
-
 ) : Parcelable

@@ -2,7 +2,6 @@ package com.example.mobflix.service.repository.remote
 
 import com.example.mobflix.service.constants.MobflixConstants
 import com.example.mobflix.service.model.api.TopResponse
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

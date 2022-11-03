@@ -46,7 +46,6 @@ class VideoRegistrationFragment : Fragment() {
     }
 }
 
-
 @Composable
 fun RegistrationScreenLayout() {
     RegistrationScreen()

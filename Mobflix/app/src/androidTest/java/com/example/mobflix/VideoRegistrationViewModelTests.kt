@@ -36,7 +36,7 @@ class VideoRegistrationViewModelTests {
 
         //Act
         viewModel.onUrlTextChanged("https://youtu.be/ijgYsmthKWU")
-        viewModel.onCategoryChanged("Mobile")
+        viewModel.onCategoryChanged("Front End")
         viewModel.videoRegistration()
 
         //Assert
