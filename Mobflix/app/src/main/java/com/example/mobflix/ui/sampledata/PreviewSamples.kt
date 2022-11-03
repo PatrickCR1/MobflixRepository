@@ -30,6 +30,7 @@ val categoryDatabaseModelSample = CategoryDatabaseModel(
 )
 
 val videoListSample = mutableListOf<VideoModel>().apply { repeat(2) { this.add(videoModelSample) } }
+val videoListSampleEmpty = mutableListOf<VideoModel>()
 val videoDatabaseListSample = mutableListOf<VideoDatabaseModel>().apply { repeat(2) { this.add(
     videoDatabaseModelSample) } }
 val categoryListSample = mutableListOf<CategoryModel>().apply { repeat(2) { this.add(categoryModelSample) } }

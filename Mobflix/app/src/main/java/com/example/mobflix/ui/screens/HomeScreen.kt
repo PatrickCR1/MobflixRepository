@@ -16,6 +16,7 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun HomeScreen(viewModel: MainViewModel = getViewModel()) {
     val videoList = viewModel.videoList.observeAsState().value
+    val categoryList = viewModel.categoryList.observeAsState().value
     Scaffold(floatingActionButton = { FabIcon(onClick = { viewModel.navigationRegistrationScreen() }) }) { contentPadding ->
         Column(
             Modifier
@@ -25,16 +26,25 @@ fun HomeScreen(viewModel: MainViewModel = getViewModel()) {
         ) {
             AppName()
             if (!videoList!!.filter { it.favorite }.isEmpty()) {
-                HighlightVideo(videoModel = viewModel.getFavoriteVideoAtRandom())
-            } else if (!videoList!!.isEmpty()){
-                HighlightVideo(videoModel = viewModel.getVideoAtRandom())
-            } else {
-                HighlightVideo(videoModel = videoModelSample)
+                val videoModel = viewModel.getFavoriteVideoAtRandom()
+                HighlightVideo(videoModel = videoModel) {
+                    viewModel.navigationYoutube(videoModel.url)
                 }
+            } else if (!videoList!!.isEmpty()) {
+                val videoModel = viewModel.getVideoAtRandom()
+                HighlightVideo(videoModel = videoModel) {
+                    viewModel.navigationYoutube(videoModel.url)
+                }
+            } else {
+                HighlightVideo(videoModel = videoModelSample) {
+                }
+            }
             Spacer(modifier = Modifier.height(16.dp))
-            VideoCategorySection()
+            VideoCategorySection(categoryList!!) {
+                viewModel.getFilteredVideoList(it)
+            }
             Spacer(modifier = Modifier.height(8.dp))
-            VideoList()
+            VideoList(videoList!!, onClick = {viewModel.navigationYoutube(it)}, onLongClick = {viewModel.navigationEditScreen(it)})
         }
     }
 }

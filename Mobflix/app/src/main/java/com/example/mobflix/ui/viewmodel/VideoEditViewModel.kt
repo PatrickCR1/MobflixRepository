@@ -74,7 +74,13 @@ class VideoEditViewModel(
                 videoRepository.updateVideo(video)
 
                 val category = CategoryModel(category = categoryText.value!!)
-                categoryRepository.saveCategory(category)
+                if (checkSave(category.category)) {
+                    categoryRepository.saveCategory(category)
+                }
+
+                if (checkDelete(videoModel.category)) {
+                    categoryRepository.removeCategory(videoModel.category)
+                }
 
                 _editButtonClick.value = true
             }
@@ -87,7 +93,7 @@ class VideoEditViewModel(
         viewModelScope.launch {
             videoRepository.removeVideo(videoModel.id)
 
-            if (videoRepository.checkDelete(videoModel.category)) {
+            if (checkDelete(videoModel.category)) {
                 categoryRepository.removeCategory(videoModel.category)
             }
 
@@ -133,6 +139,22 @@ class VideoEditViewModel(
 
     fun checkImage(): Boolean {
         return (image.value != "")
+    }
+
+    suspend fun checkSave(name: String): Boolean {
+        val list = categoryRepository.getCategoryList()
+        var add = true
+        list.forEach {
+            if (it.category == name) {
+                add = false
+            }
+        }
+        return add
+    }
+
+    suspend fun checkDelete(category: String): Boolean {
+        val list = videoRepository.getFilteredVideoList(category)
+        return list.isEmpty()
     }
 
     fun showSnackBar() {

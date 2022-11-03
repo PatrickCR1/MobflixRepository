@@ -89,8 +89,4 @@ class VideoRepository(
         dao.updateVideo(videoDB)
     }
 
-    suspend fun checkDelete(category: String): Boolean {
-        val list = getFilteredVideoList(category)
-        return list.isEmpty()
-    }
 }

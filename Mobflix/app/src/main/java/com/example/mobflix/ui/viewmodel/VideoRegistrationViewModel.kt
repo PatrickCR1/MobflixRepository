@@ -62,7 +62,9 @@ class VideoRegistrationViewModel(
                 videoRepository.saveVideo(video)
 
                 val category = CategoryModel(category = categoryText.value!!)
-                categoryRepository.saveCategory(category)
+                if (checkSave(category.category)) {
+                    categoryRepository.saveCategory(category)
+                }
 
                 _registrationClick.value = true
             }
@@ -105,6 +107,17 @@ class VideoRegistrationViewModel(
 
     fun checkImage(): Boolean {
         return (image.value != "")
+    }
+
+    suspend fun checkSave(name: String): Boolean {
+        val list = categoryRepository.getCategoryList()
+        var add = true
+        list.forEach {
+            if (it.category == name) {
+                add = false
+            }
+        }
+        return add
     }
 
     fun showSnackBar() {

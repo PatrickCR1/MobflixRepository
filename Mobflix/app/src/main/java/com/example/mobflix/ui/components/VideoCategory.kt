@@ -71,31 +71,6 @@ fun VideoCategoryClickable(name: String, backgroundColor: Color, function: () ->
     }
 }
 
-@Composable
-fun VideoCategoryClickable(backgroundColor: Color) {
-    Surface(
-        Modifier
-            .clickable { }
-            .testTag(stringResource(id = R.string.video_category_clickable)),
-        shape = RoundedCornerShape(mediumCornerShape)
-    ) {
-        Text(
-            text = stringResource(id = R.string.your_category),
-            Modifier
-                .background(backgroundColor)
-                .padding(top = 7.dp, bottom = 6.dp, start = 23.dp, end = 22.dp)
-                .sizeIn(minWidth = 69.dp, minHeight = 19.dp)
-                .clickable { },
-            fontFamily = robotoFamily,
-            fontWeight = FontWeight(normalLightFontWeight),
-            fontSize = 16.sp,
-            lineHeight = 19.sp,
-            textAlign = TextAlign.Center,
-            color = White,
-        )
-    }
-}
-
 @Preview()
 @Composable
 private fun VideoCategoryPreview() {

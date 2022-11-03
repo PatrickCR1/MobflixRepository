@@ -5,11 +5,14 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.mobflix.service.repository.CategoryRepository
 import com.example.mobflix.service.repository.VideoRepository
+import com.example.mobflix.ui.components.categoryListSample
+import com.example.mobflix.ui.components.stringSample
 import com.example.mobflix.ui.viewmodel.VideoRegistrationViewModel
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -160,6 +163,30 @@ class VideoRegistrationViewModelTests {
 
         // Assert
         assertFalse(returnValue)
+    }
+
+    @Test
+    fun checkCategoryShouldReturnTrue() = runBlocking {
+        // Arrange
+        coEvery {categoryRepository.getCategoryList()} returns categoryListSample
+
+        // Act
+        val returnedValue = viewModel.checkSave(stringSample)
+
+        // Assert
+        Assert.assertTrue(returnedValue)
+    }
+
+    @Test
+    fun whenSavingCategoryWithSameNameCheckCategoryShouldReturnFalse() = runBlocking {
+        // Arrange
+        coEvery {categoryRepository.getCategoryList()} returns categoryListSample
+
+        // Act
+        val returnedValue = viewModel.checkSave("Mobile")
+
+        // Assert
+        Assert.assertFalse(returnedValue)
     }
 
     @Test

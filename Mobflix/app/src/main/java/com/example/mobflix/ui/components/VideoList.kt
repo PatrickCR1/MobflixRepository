@@ -30,15 +30,14 @@ import com.example.mobflix.ui.viewmodel.VideoRegistrationViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun VideoList(viewModel: MainViewModel = getViewModel()) {
-    val videoList = viewModel.videoList.observeAsState().value
+fun VideoList(videoList: List<VideoModel>, onClick: (String) -> Unit, onLongClick: (VideoModel) -> Unit) {
     LazyColumn(
         Modifier
             .testTag(stringResource(id = R.string.video_list))
     ) {
         if (!videoList!!.isEmpty()) {
             items(videoList!!) {
-                VideoRow(videoModel = it)
+                VideoRow(videoModel = it, onClick = {onClick(it.url)}, onLongClick = {onLongClick(it)})
                 Spacer(modifier = Modifier.height(verySmallPadding))
             }
         } else {
@@ -52,9 +51,8 @@ fun VideoList(viewModel: MainViewModel = getViewModel()) {
     }
 }
 
-
 @Composable
-fun VideoRow(videoModel: VideoModel, viewModel: MainViewModel = getViewModel()) {
+fun VideoRow(videoModel: VideoModel, onClick: () -> Unit, onLongClick: () -> Unit) {
     Column(
         Modifier
             .testTag(stringResource(id = R.string.video_row))
@@ -74,7 +72,7 @@ fun VideoRow(videoModel: VideoModel, viewModel: MainViewModel = getViewModel()) 
             FavoriteButton(video = videoModel)
         }
     }
-    VideoCard(videoModel = videoModel, onClick = {viewModel.navigationYoutube(videoModel.url)}, onLongClick = {viewModel.navigationEditScreen(videoModel)})
+    VideoCard(videoModel = videoModel, onClick = onClick, onLongClick = onLongClick)
 }
 
 @Composable
@@ -144,11 +142,11 @@ private fun VideoCardPreview() {
 @Preview()
 @Composable
 private fun VideoListPreview() {
-    VideoList()
+    VideoList(videoListSample, onClick = {exampleFun()}, onLongClick = {exampleFun()})
 }
 
 @Preview()
 @Composable()
 private fun VideoRowPreview() {
-    VideoRow(videoModelSample)
+    VideoRow(videoModel = videoModelSample, onClick = {exampleFun()}, onLongClick = {exampleFun()})
 }

@@ -9,29 +9,16 @@ class CategoryRepository(private val dao: CategoryDAO) {
 
     suspend fun getCategoryList(): List<CategoryModel> {
         val categoryDatabaseList = dao.list()
-        val categoryList = categoryDatabaseList.map {it.toCategoryModel()}
+        val categoryList = categoryDatabaseList.map { it.toCategoryModel() }
         return categoryList
     }
 
     suspend fun saveCategory(category: CategoryModel) {
-        if (checkSave(category.category)) {
-            val categoryDB = category.toCategoryDatabaseModel()
-            dao.save(categoryDB)
-        }
+        val categoryDB = category.toCategoryDatabaseModel()
+        dao.save(categoryDB)
     }
 
     suspend fun removeCategory(category: String) {
-            dao.remove(category)
-    }
-
-    suspend fun checkSave(name: String): Boolean {
-        val list = getCategoryList()
-        var add = true
-        list.forEach {
-            if (it.category == name) {
-                add = false
-            }
-        }
-        return add
+        dao.remove(category)
     }
 }

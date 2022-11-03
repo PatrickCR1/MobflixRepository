@@ -39,18 +39,6 @@ class CategoryRepositoryTests {
     }
 
     @Test
-    fun checkCategoryShouldReturnTrue() = runBlocking {
-        // Arrange
-        coEvery {dao.list()} returns categoryDatabaseListSample
-
-        // Act
-        val returnedValue = categoryRepository.checkSave("String")
-
-        // Assert
-        Assert.assertTrue(returnedValue)
-    }
-
-    @Test
     fun deleteCategoryShouldCallDaoDelete() = runBlocking {
         // Arrange
         coEvery { dao.remove(any()) } returns Unit
@@ -75,21 +63,6 @@ class CategoryRepositoryTests {
 
         // Assert
         coVerify {
-            dao.save(any())
-        }
-    }
-
-    @Test
-    fun saveCategoryWithSameNameShouldNotCallDaoSave() = runBlocking {
-        // Arrange
-        coEvery {dao.list()} returns categoryDatabaseListSample
-        coEvery {dao.save(any())} returns Unit
-
-        // Act
-        categoryRepository.saveCategory(categoryModelSample)
-
-        // Assert
-        coVerify(inverse = true) {
             dao.save(any())
         }
     }

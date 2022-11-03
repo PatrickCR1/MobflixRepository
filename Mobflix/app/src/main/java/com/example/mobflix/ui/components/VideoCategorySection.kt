@@ -12,14 +12,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.compose.ui.theme.PurpleBackgroundVideoCategory
 import com.example.compose.ui.theme.DarkGoldBackgroundVideoCategory
 import com.example.mobflix.R
+import com.example.mobflix.service.model.category.CategoryModel
 import com.example.mobflix.ui.theme.mediumSpacedBy
 import com.example.mobflix.ui.theme.verySmallPadding
 import com.example.mobflix.ui.viewmodel.MainViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun VideoCategorySection(viewModel: MainViewModel = getViewModel()) {
-    val categoryList = viewModel.categoryList.observeAsState().value
+fun VideoCategorySection(categoryList: List<CategoryModel>, function: (String) -> Unit) {
     LazyRow(
         Modifier
             .testTag(stringResource(id = R.string.video_section_row)),
@@ -27,15 +27,13 @@ fun VideoCategorySection(viewModel: MainViewModel = getViewModel()) {
     ) {
         if (!categoryList!!.isEmpty()) {
             items(categoryList!!) {
-                VideoCategoryClickable(name = it.category, backgroundColor = it.color) {
-                    viewModel.getFilteredVideoList(it.category)
-                }
+                VideoCategoryClickable(name = it.category, backgroundColor = it.color, function = {function(it.category)})
             }
         } else {
             items(1) {
-                VideoCategoryClickable(DarkGoldBackgroundVideoCategory)
+                VideoCategoryClickable(name = stringResource(id = R.string.your_category), backgroundColor = DarkGoldBackgroundVideoCategory, function = {})
                 Spacer(modifier = Modifier.width(verySmallPadding))
-                VideoCategoryClickable(PurpleBackgroundVideoCategory)
+                VideoCategoryClickable(name = stringResource(id = R.string.your_category), backgroundColor = PurpleBackgroundVideoCategory, function = {})
             }
         }
     }
@@ -44,5 +42,7 @@ fun VideoCategorySection(viewModel: MainViewModel = getViewModel()) {
 @Preview()
 @Composable
 private fun VideoCategorySectionPreview() {
-    VideoCategorySection()
+    VideoCategorySection(categoryListSample) {
+        exampleFun()
+    }
 }
