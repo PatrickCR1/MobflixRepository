@@ -30,14 +30,23 @@ import com.example.mobflix.ui.viewmodel.VideoRegistrationViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun VideoList(videoList: List<VideoModel>, onClick: (String) -> Unit, onLongClick: (VideoModel) -> Unit) {
+fun VideoList(
+    videoList: List<VideoModel>,
+    onClick: (String) -> Unit,
+    onLongClick: (VideoModel) -> Unit,
+    favoriteButtonFunction: (VideoModel) -> Unit
+) {
     LazyColumn(
         Modifier
             .testTag(stringResource(id = R.string.video_list))
     ) {
         if (!videoList!!.isEmpty()) {
             items(videoList!!) {
-                VideoRow(videoModel = it, onClick = {onClick(it.url)}, onLongClick = {onLongClick(it)})
+                VideoRow(
+                    videoModel = it,
+                    onClick = { onClick(it.url) },
+                    onLongClick = { onLongClick(it) },
+                    favoriteButtonFunction = { favoriteButtonFunction(it) })
                 Spacer(modifier = Modifier.height(verySmallPadding))
             }
         } else {
@@ -52,7 +61,12 @@ fun VideoList(videoList: List<VideoModel>, onClick: (String) -> Unit, onLongClic
 }
 
 @Composable
-fun VideoRow(videoModel: VideoModel, onClick: () -> Unit, onLongClick: () -> Unit) {
+fun VideoRow(
+    videoModel: VideoModel,
+    onClick: () -> Unit,
+    onLongClick: () -> Unit,
+    favoriteButtonFunction: () -> Unit
+) {
     Column(
         Modifier
             .testTag(stringResource(id = R.string.video_row))
@@ -67,9 +81,10 @@ fun VideoRow(videoModel: VideoModel, onClick: () -> Unit, onLongClick: () -> Uni
         Row {
             VideoCategory(
                 name = videoModel.category,
-                backgroundColor = videoModel.categoryColor)
+                backgroundColor = videoModel.categoryColor
+            )
             Spacer(modifier = Modifier.width(smallPadding))
-            FavoriteButton(video = videoModel)
+            FavoriteButton(video = videoModel, function = favoriteButtonFunction)
         }
     }
     VideoCard(videoModel = videoModel, onClick = onClick, onLongClick = onLongClick)
@@ -103,7 +118,8 @@ fun VideoCard(videoModel: VideoModel, onClick: () -> Unit, onLongClick: () -> Un
         modifier = Modifier
             .padding(start = smallPadding, end = smallPadding, top = verySmallPadding)
             .testTag(stringResource(id = R.string.video_card))
-            .combinedClickable(onClick = onClick, onLongClick = onLongClick), contentAlignment = Alignment.Center
+            .combinedClickable(onClick = onClick, onLongClick = onLongClick),
+        contentAlignment = Alignment.Center
     ) {
         Image(
             painter = rememberAsyncImagePainter(model = videoModel.image), modifier = Modifier
@@ -142,11 +158,18 @@ private fun VideoCardPreview() {
 @Preview()
 @Composable
 private fun VideoListPreview() {
-    VideoList(videoListSample, onClick = {exampleFun()}, onLongClick = {exampleFun()})
+    VideoList(
+        videoListSample,
+        onClick = { exampleFun() },
+        onLongClick = { exampleFun() },
+        favoriteButtonFunction = { exampleFun() })
 }
 
 @Preview()
 @Composable()
 private fun VideoRowPreview() {
-    VideoRow(videoModel = videoModelSample, onClick = {exampleFun()}, onLongClick = {exampleFun()})
+    VideoRow(
+        videoModel = videoModelSample,
+        onClick = { exampleFun() },
+        onLongClick = { exampleFun() }, favoriteButtonFunction = { exampleFun() })
 }

@@ -44,7 +44,7 @@ fun HomeScreen(viewModel: MainViewModel = getViewModel()) {
                 viewModel.getFilteredVideoList(it)
             }
             Spacer(modifier = Modifier.height(8.dp))
-            VideoList(videoList!!, onClick = {viewModel.navigationYoutube(it)}, onLongClick = {viewModel.navigationEditScreen(it)})
+            VideoList(videoList!!, onClick = {viewModel.navigationYoutube(it)}, onLongClick = {viewModel.navigationEditScreen(it)}, favoriteButtonFunction = {viewModel.isVideoFavorite(it)})
         }
     }
 }

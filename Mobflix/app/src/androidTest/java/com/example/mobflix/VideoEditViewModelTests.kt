@@ -47,12 +47,15 @@ class VideoEditViewModelTests {
         // Arrange
         coEvery { videoRepository.getThumbnailImage(any(), any()) } returns Unit
         coEvery { videoRepository.updateVideo(any()) } returns Unit
+        coEvery { videoRepository.getFilteredVideoList(any()) } returns videoListSampleEmpty
         coEvery { categoryRepository.saveCategory(any()) } returns Unit
+        coEvery { categoryRepository.getCategoryList() } returns categoryListSample
+        coEvery { categoryRepository.removeCategory(any()) } returns Unit
 
         //Act
         viewModel.setVideoModel(videoModel)
         viewModel.onUrlTextChanged("https://youtu.be/ijgYsmthKWU")
-        viewModel.onCategoryChanged("Mobile")
+        viewModel.onCategoryChanged("Front End")
         viewModel.videoUpdate()
 
         //Assert

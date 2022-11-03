@@ -25,48 +25,63 @@ import com.example.mobflix.ui.viewmodel.VideoRegistrationViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun VideoPreviewSectionRegistrationScreen(viewModel: VideoRegistrationViewModel = getViewModel()) {
-    val categoryText = viewModel.categoryText.observeAsState().value
+fun VideoPreviewSectionRegistrationScreen(
+    categoryText: String,
+    image: String,
+    function: () -> Unit
+) {
+
     Column(Modifier.padding(start = mediumPadding, end = mediumPadding)) {
         PreviewText(name = stringResource(id = R.string.preview))
         Spacer(modifier = Modifier.height(smallPadding))
         if (categoryText != "") {
-            VideoCategory(name = viewModel.categoryText.value!!, backgroundColor = BlueEditText)
+            VideoCategory(name = categoryText, backgroundColor = BlueEditText)
         }
-        if (viewModel.image.value != "") {
-        PreviewVideoCard(image = viewModel.image.value)
+        if (image != "") {
+            PreviewVideoCard(image = image)
         } else {
             PreviewVideoCard(image = R.drawable.youtubeimage)
         }
-        VideoButton(text = stringResource(id = R.string.registration), color = LightBlue) {
-            viewModel.videoRegistration()
-        }
+        VideoButton(
+            text = stringResource(id = R.string.registration),
+            color = LightBlue,
+            function = function
+        )
     }
 }
 
 @Composable
-fun VideoPreviewSectionEditVideoScreen(viewModel: VideoEditViewModel = getViewModel()) {
-    val categoryText = viewModel.categoryText.observeAsState().value
+fun VideoPreviewSectionEditVideoScreen(
+    categoryText: String,
+    image: String,
+    updateButtonFunction: () -> Unit,
+    removeButtonFunction: () -> Unit
+) {
     Column(
         Modifier
             .padding(start = mediumPadding, end = mediumPadding)
-            .verticalScroll(rememberScrollState(0))) {
+            .verticalScroll(rememberScrollState(0))
+    ) {
         PreviewText(name = stringResource(id = R.string.preview))
         Spacer(modifier = Modifier.height(smallPadding))
         if (categoryText != "") {
-            VideoCategory(name = viewModel.categoryText.value!!, backgroundColor = BlueEditText)
+            VideoCategory(name = categoryText, backgroundColor = BlueEditText)
         }
-        if (viewModel.image.value != "") {
-            PreviewVideoCard(image = viewModel.image.value)
+        if (image != "") {
+            PreviewVideoCard(image = image)
         } else {
             PreviewVideoCard(image = R.drawable.youtubeimage)
         }
-        VideoButton(text = stringResource(id = R.string.edit), color = LightBlue) {
-            viewModel.videoUpdate()
-        }
-        VideoButton(text = stringResource(id = R.string.remove), color = RedButton) {
-            viewModel.videoRemove()
-        }
+        VideoButton(
+            text = stringResource(id = R.string.edit),
+            color = LightBlue,
+            function = updateButtonFunction
+        )
+        VideoButton(
+            text = stringResource(id = R.string.remove),
+            color = RedButton,
+            function = removeButtonFunction
+        )
         Spacer(modifier = Modifier.height(mediumPadding))
     }
 }
@@ -74,13 +89,20 @@ fun VideoPreviewSectionEditVideoScreen(viewModel: VideoEditViewModel = getViewMo
 @Preview
 @Composable
 private fun VideoPreviewSectionRegistrationScreenPreview() {
-    VideoPreviewSectionRegistrationScreen()
+    VideoPreviewSectionRegistrationScreen(
+        categoryText = stringSample,
+        image = imageSample,
+        function = { exampleFun() })
 }
 
 @Preview
 @Composable
 private fun VideoPreviewSectionEditScreenPreview() {
-    VideoPreviewSectionEditVideoScreen()
+    VideoPreviewSectionEditVideoScreen(
+        categoryText = stringSample,
+        image = imageSample,
+        updateButtonFunction = { exampleFun() },
+        removeButtonFunction = { exampleFun() })
 }
 
 @Composable

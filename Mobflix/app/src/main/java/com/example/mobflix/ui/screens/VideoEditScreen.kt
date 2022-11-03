@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -25,6 +26,9 @@ import org.koin.androidx.compose.getViewModel
 fun VideoEditScreen(viewModel: VideoEditViewModel = getViewModel()) {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
+    val urlText = viewModel.urlText.observeAsState().value
+    val categoryText = viewModel.categoryText.observeAsState().value
+    val image = viewModel.image.value
 
     Scaffold(scaffoldState = scaffoldState) { contentPadding ->
         SnackbarHost(hostState = scaffoldState.snackbarHostState) { data ->
@@ -46,9 +50,9 @@ fun VideoEditScreen(viewModel: VideoEditViewModel = getViewModel()) {
             Spacer(Modifier.height(smallSpacer))
             ScreenTitleText(name = stringResource(id = R.string.video_edit))
             Spacer(Modifier.height(smallSpacer))
-            RegistrationFields()
+            RegistrationFields(urlText = urlText!!, categoryText = categoryText!!, onUrlChangedFunction = {viewModel.onUrlTextChanged(it)}, onCategoryChangedFunction = {viewModel.onCategoryChanged(it)})
             Spacer(Modifier.height(smallSpacer))
-            VideoPreviewSectionEditVideoScreen()
+            VideoPreviewSectionEditVideoScreen(categoryText = categoryText!!, image = image, updateButtonFunction = {viewModel.videoUpdate()}, removeButtonFunction = {viewModel.videoRemove()})
         }
         LaunchedEffect(key1 = Unit) {
             viewModel.snackBar.observeForever {

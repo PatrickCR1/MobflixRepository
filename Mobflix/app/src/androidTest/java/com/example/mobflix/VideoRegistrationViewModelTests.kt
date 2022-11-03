@@ -36,10 +36,11 @@ class VideoRegistrationViewModelTests {
         coEvery { videoRepository.getThumbnailImage(any(), any()) } returns Unit
         coEvery { videoRepository.saveVideo(any()) } returns Unit
         coEvery { categoryRepository.saveCategory(any()) } returns Unit
+        coEvery { categoryRepository.getCategoryList() } returns categoryListSample
 
         //Act
         viewModel.onUrlTextChanged("https://youtu.be/ijgYsmthKWU")
-        viewModel.onCategoryChanged("Front End")
+        viewModel.onCategoryChanged("Programming")
         viewModel.videoRegistration()
 
         //Assert

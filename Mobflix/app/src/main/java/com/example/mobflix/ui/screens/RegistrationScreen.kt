@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -25,10 +26,14 @@ import org.koin.androidx.compose.getViewModel
 fun RegistrationScreen(viewModel: VideoRegistrationViewModel = getViewModel()) {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
+    val urlText = viewModel.urlText.observeAsState().value
+    val categoryText = viewModel.categoryText.observeAsState().value
+    val image = viewModel.image.value
 
     Scaffold(scaffoldState = scaffoldState) { contentPadding ->
         SnackbarHost(hostState = scaffoldState.snackbarHostState) { data ->
-            Snackbar(Modifier.testTag(stringResource(id = R.string.snack_bar))
+            Snackbar(
+                Modifier.testTag(stringResource(id = R.string.snack_bar))
             ) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
@@ -45,9 +50,15 @@ fun RegistrationScreen(viewModel: VideoRegistrationViewModel = getViewModel()) {
             Spacer(Modifier.height(smallSpacer))
             ScreenTitleText(name = stringResource(id = R.string.video_registration))
             Spacer(Modifier.height(smallSpacer))
-            EmptyRegistrationFields()
+            EmptyRegistrationFields(
+                urlText = urlText!!,
+                categoryText = categoryText!!,
+                onUrlChangedFunction = { viewModel.onUrlTextChanged(it) },
+                onCategoryChangedFunction = { viewModel.onCategoryChanged(it) })
             Spacer(Modifier.height(smallSpacer))
-            VideoPreviewSectionRegistrationScreen()
+            VideoPreviewSectionRegistrationScreen(categoryText = categoryText!!, image = image) {
+                viewModel.videoRegistration()
+            }
         }
         LaunchedEffect(key1 = Unit) {
             viewModel.snackBar.observeForever {

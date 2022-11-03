@@ -19,7 +19,7 @@ fun FavoriteButton(
     video: VideoModel,
     modifier: Modifier = Modifier,
     color: Color = FavoriteRed,
-    viewModel: MainViewModel = getViewModel()
+    function: () -> Unit
 ) {
     var isFavorite by remember { mutableStateOf(false) }
     isFavorite = video.favorite
@@ -27,7 +27,7 @@ fun FavoriteButton(
     IconToggleButton(
         checked = video.favorite,
         onCheckedChange = {
-            viewModel.isVideoFavorite(video)
+            function
             isFavorite = !isFavorite
         }
     ) {

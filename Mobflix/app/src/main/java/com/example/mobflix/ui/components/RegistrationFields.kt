@@ -25,41 +25,48 @@ import com.example.mobflix.ui.viewmodel.VideoRegistrationViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun EmptyRegistrationFields(viewModel: VideoRegistrationViewModel = getViewModel()) {
-    val urlText = viewModel.urlText.observeAsState().value
-    val categoryText = viewModel.categoryText.observeAsState().value
+fun EmptyRegistrationFields(
+    urlText: String,
+    categoryText: String,
+    onUrlChangedFunction: (String) -> Unit,
+    onCategoryChangedFunction: (String) -> Unit
+) {
     Column() {
         RegistrationFieldText(name = stringResource(id = R.string.url_registration))
-        RegistrationFieldEditText(stringResource(id = R.string.url_text_hint), urlText!!) {
-            viewModel.onUrlTextChanged(it)
+        RegistrationFieldEditText(
+            stringResource(id = R.string.url_text_hint),
+            urlText
+        ) {
+            onUrlChangedFunction(it)
         }
         Spacer(modifier = Modifier.height(smallSpacer))
         RegistrationFieldText(name = stringResource(id = R.string.category_registration))
         RegistrationFieldEditText(
             stringResource(id = R.string.category_text_hint),
-            categoryText!!
+            categoryText
         ) {
-            viewModel.onCategoryChanged(it)
+            onCategoryChangedFunction(it)
         }
     }
 }
 
 @Composable
-fun RegistrationFields(viewModel: VideoEditViewModel = getViewModel()) {
-    val urlText = viewModel.urlText.observeAsState().value
-    val categoryText = viewModel.categoryText.observeAsState().value
+fun RegistrationFields(urlText: String,
+                       categoryText: String,
+                       onUrlChangedFunction: (String) -> Unit,
+                       onCategoryChangedFunction: (String) -> Unit) {
     Column() {
         RegistrationFieldText(name = stringResource(id = R.string.url_registration))
-        RegistrationFieldEditText(stringResource(id = R.string.url_text_hint), urlText!!) {
-            viewModel.onUrlTextChanged(it)
+        RegistrationFieldEditText(stringResource(id = R.string.url_text_hint), urlText) {
+            onUrlChangedFunction(it)
         }
         Spacer(modifier = Modifier.height(smallSpacer))
         RegistrationFieldText(name = stringResource(id = R.string.category_registration))
         RegistrationFieldEditText(
             stringResource(id = R.string.category_text_hint),
-            categoryText!!
+            categoryText
         ) {
-            viewModel.onCategoryChanged(it)
+            onCategoryChangedFunction(it)
         }
     }
 }
@@ -108,13 +115,13 @@ fun RegistrationFieldEditText(hint: String, text: String, function: (String) -> 
 @Composable
 @Preview
 private fun EmptyRegistrationFieldsPreview() {
-    EmptyRegistrationFields()
+    EmptyRegistrationFields(urlText = stringSample, categoryText = stringSample, onUrlChangedFunction = {exampleFun()}, onCategoryChangedFunction = { exampleFun()})
 }
 
 @Composable
 @Preview
 private fun RegistrationFieldsPreview() {
-    RegistrationFields()
+    RegistrationFields(urlText = stringSample, categoryText = stringSample, onUrlChangedFunction = {exampleFun()}, onCategoryChangedFunction = { exampleFun()})
 }
 
 @Preview

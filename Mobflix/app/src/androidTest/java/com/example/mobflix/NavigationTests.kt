@@ -1,6 +1,5 @@
 package com.example.mobflix
 
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule

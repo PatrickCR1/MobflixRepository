@@ -47,7 +47,7 @@ class HomeScreenTests {
         composeTestRule.onAllNodesWithTag(videoCategoryClickableString)[2].assertIsDisplayed()
         composeTestRule.onNodeWithTag(videoSectionRowString).assert(hasScrollAction())
         composeTestRule.onNodeWithTag(videoSectionRowString).assertHeightIsAtLeast(19.dp)
-        composeTestRule.onNodeWithTag(videoSectionRowString).assertWidthIsAtLeast(390.dp)
+        composeTestRule.onNodeWithTag(videoSectionRowString).assertWidthIsAtLeast(380.dp)
     }
 
     @Test

@@ -1,6 +1,5 @@
 package com.example.mobflix.ui.components
 
-import androidx.lifecycle.MutableLiveData
 import com.example.mobflix.service.model.category.CategoryDatabaseModel
 import com.example.mobflix.service.model.category.CategoryModel
 import com.example.mobflix.service.model.video.VideoDatabaseModel
@@ -44,8 +43,6 @@ val thumbnailSample = "http://i3.ytimg.com/vi/ijgYsmthKWU/hqdefault.jpg"
 val stringSample = ""
 
 val intSample = 0
-
-val sampleMutableLiveData = MutableLiveData<String>()
 
 fun exampleFun() {}
 
