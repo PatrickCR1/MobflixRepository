@@ -40,3 +40,19 @@
 ## `Mockk`: Para realizar simulações (mocks) e testes 
 ## `Espresso`: Testes Instrumentados
 ## `Jetpack Compose Test`: Testes de Interface com o Compose
+
+# 📁 Acesso ao projeto
+## Você pode [acessar o código fonte do projeto inicial](https://github.com/PatrickCR1/MobflixRepository/tree/Main/Mobflix) ou [baixá-lo]([https://github.com/alura-cursos/android-com-kotlin-personalizando-ui/archive/refs/heads/projeto-inicial.zip](https://github.com/PatrickCR1/MobflixRepository/archive/refs/heads/Main.zip)).
+
+## 🛠️ Abrir e rodar o projeto
+
+Após baixar o projeto, você pode abrir com o Android Studio. Para isso, na tela de launcher clique em:
+
+- **Open an Existing Project** (ou alguma opção similar)
+- Procure o local onde o projeto está e o selecione (Caso o projeto seja baixado via zip, é necessário extraí-lo antes de procurá-lo)
+- Por fim clique em OK
+
+O Android Studio deve executar algumas tasks do Gradle para configurar o projeto, aguarde até finalizar. Ao finalizar as tasks, você pode executar o App 🏆 
+
+# Autor
+[<img src="https://avatars.githubusercontent.com/u/86331226?v=4" width=115><br><sub>Patrick Contarini Richard</sub>](https://github.com/PatrickCR1) 
