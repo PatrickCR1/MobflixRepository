@@ -53,14 +53,20 @@ fun RegistrationScreen(viewModel: VideoRegistrationViewModel = getViewModel()) {
             Spacer(Modifier.height(smallSpacer))
             ScreenTitleText(name = stringResource(id = R.string.video_registration))
             Spacer(Modifier.height(smallSpacer))
-            EmptyRegistrationFields(
-                urlText = urlText!!,
-                categoryText = categoryText!!,
-                onUrlChangedFunction = { viewModel.onUrlTextChanged(it) },
-                onCategoryChangedFunction = { viewModel.onCategoryChanged(it) })
+            urlText?.let {
+                categoryText?.let { it1 ->
+                    EmptyRegistrationFields(
+                        urlText = it,
+                        categoryText = it1,
+                        onUrlChangedFunction = { viewModel.onUrlTextChanged(it) },
+                        onCategoryChangedFunction = { viewModel.onCategoryChanged(it) })
+                }
+            }
             Spacer(Modifier.height(smallSpacer))
-            VideoPreviewSectionRegistrationScreen(categoryText = categoryText!!, image = image) {
-                viewModel.videoRegistration()
+            categoryText?.let {
+                VideoPreviewSectionRegistrationScreen(categoryText = it, image = image) {
+                    viewModel.videoRegistration()
+                }
             }
             Spacer(Modifier.height(smallSpacer))
         }

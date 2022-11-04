@@ -50,9 +50,23 @@ fun VideoEditScreen(viewModel: VideoEditViewModel = getViewModel()) {
             Spacer(Modifier.height(smallSpacer))
             ScreenTitleText(name = stringResource(id = R.string.video_edit))
             Spacer(Modifier.height(smallSpacer))
-            RegistrationFields(urlText = urlText!!, categoryText = categoryText!!, onUrlChangedFunction = {viewModel.onUrlTextChanged(it)}, onCategoryChangedFunction = {viewModel.onCategoryChanged(it)})
+            urlText?.let {
+                categoryText?.let { it1 ->
+                    RegistrationFields(
+                        urlText = it,
+                        categoryText = it1,
+                        onUrlChangedFunction = { viewModel.onUrlTextChanged(it) },
+                        onCategoryChangedFunction = { viewModel.onCategoryChanged(it) })
+                }
+            }
             Spacer(Modifier.height(smallSpacer))
-            VideoPreviewSectionEditVideoScreen(categoryText = categoryText!!, image = image, updateButtonFunction = {viewModel.videoUpdate()}, removeButtonFunction = {viewModel.videoRemove()})
+            categoryText?.let {
+                VideoPreviewSectionEditVideoScreen(
+                    categoryText = it,
+                    image = image,
+                    updateButtonFunction = { viewModel.videoUpdate() },
+                    removeButtonFunction = { viewModel.videoRemove() })
+            }
         }
         LaunchedEffect(key1 = Unit) {
             viewModel.snackBar.observeForever {

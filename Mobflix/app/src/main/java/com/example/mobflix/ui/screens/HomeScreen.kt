@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.compose.ui.theme.BlackBackground
+import com.example.mobflix.service.model.video.VideoModel
 import com.example.mobflix.ui.components.*
 import com.example.mobflix.ui.viewmodel.MainViewModel
 import org.koin.androidx.compose.getViewModel
@@ -17,7 +18,9 @@ import org.koin.androidx.compose.getViewModel
 fun HomeScreen(viewModel: MainViewModel = getViewModel()) {
     val videoList = viewModel.videoList.observeAsState().value
     val categoryList = viewModel.categoryList.observeAsState().value
-    Scaffold(floatingActionButton = { FabIcon(onClick = { viewModel.navigationRegistrationScreen() }) }) { contentPadding ->
+    Scaffold(floatingActionButton = { FabIcon(
+        onClick = { viewModel.navigationRegistrationScreen() })})
+    { contentPadding ->
         Column(
             Modifier
                 .fillMaxSize()
@@ -25,26 +28,42 @@ fun HomeScreen(viewModel: MainViewModel = getViewModel()) {
                 .background(BlackBackground)
         ) {
             AppName()
-            if (!videoList!!.filter { it.favorite }.isEmpty()) {
-                val videoModel = viewModel.getFavoriteVideoAtRandom()
-                HighlightVideo(videoModel = videoModel) {
-                    viewModel.navigationYoutube(videoModel.url)
+            videoList?.let {
+                PickHighlightVideo(videoList, viewModel)
+                Spacer(modifier = Modifier.height(16.dp))
+                categoryList?.let { it1 ->
+                    VideoCategorySection(it1) {
+                        viewModel.getFilteredVideoList(it)
+                    }
                 }
-            } else if (!videoList!!.isEmpty()) {
-                val videoModel = viewModel.getVideoAtRandom()
-                HighlightVideo(videoModel = videoModel) {
-                    viewModel.navigationYoutube(videoModel.url)
-                }
-            } else {
-                HighlightVideo(videoModel = videoModelSample) {
-                }
+                Spacer(modifier = Modifier.height(8.dp))
+                VideoList(
+                    videoList,
+                    onClick = { viewModel.navigationYoutube(it) },
+                    onLongClick = { viewModel.navigationEditScreen(it) },
+                    favoriteButtonFunction = { viewModel.isVideoFavorite(it) })
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            VideoCategorySection(categoryList!!) {
-                viewModel.getFilteredVideoList(it)
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            VideoList(videoList!!, onClick = {viewModel.navigationYoutube(it)}, onLongClick = {viewModel.navigationEditScreen(it)}, favoriteButtonFunction = {viewModel.isVideoFavorite(it)})
+        }
+    }
+}
+
+@Composable
+private fun PickHighlightVideo(
+    videoList: List<VideoModel>,
+    viewModel: MainViewModel
+) {
+    if (!videoList.none { it.favorite }) {
+        val videoModel = viewModel.getFavoriteVideoAtRandom()
+        HighlightVideo(videoModel = videoModel) {
+            viewModel.navigationYoutube(videoModel.url)
+        }
+    } else if (videoList.isNotEmpty()) {
+        val videoModel = viewModel.getVideoAtRandom()
+        HighlightVideo(videoModel = videoModel) {
+            viewModel.navigationYoutube(videoModel.url)
+        }
+    } else {
+        HighlightVideo(videoModel = videoModelSample) {
         }
     }
 }
