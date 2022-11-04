@@ -42,7 +42,7 @@
 ## `Jetpack Compose Test`: Testes de Interface com o Compose
 
 # 📁 Acesso ao projeto
-## Você pode [acessar o código fonte do projeto inicial](https://github.com/PatrickCR1/MobflixRepository/tree/Main/Mobflix) ou [baixá-lo]([https://github.com/alura-cursos/android-com-kotlin-personalizando-ui/archive/refs/heads/projeto-inicial.zip](https://github.com/PatrickCR1/MobflixRepository/archive/refs/heads/Main.zip)).
+## Você pode [acessar o código fonte do projeto inicial](https://github.com/PatrickCR1/MobflixRepository/tree/Main/Mobflix) ou [baixá-lo](https://github.com/PatrickCR1/MobflixRepository/archive/refs/heads/Main.zip).
 
 ## 🛠️ Abrir e rodar o projeto
 
