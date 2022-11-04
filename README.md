@@ -39,6 +39,10 @@
 ### `Espresso`: Testes Instrumentados
 ### `Jetpack Compose Test`: Testes de Interface com o Compose
 
+## Dependências
+
+### Você pode [acessar as dependências aqui](https://github.com/PatrickCR1/MobflixRepository/blob/Main/Dependencies.txt).
+  
 ## 📁 Acesso ao projeto
 ### Você pode [acessar o código fonte do projeto inicial](https://github.com/PatrickCR1/MobflixRepository/tree/Main/Mobflix) ou [baixá-lo](https://github.com/PatrickCR1/MobflixRepository/archive/refs/heads/Main.zip).
 
