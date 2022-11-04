@@ -4,13 +4,10 @@
 <p align="center"><img src="https://img.shields.io/badge/tested-november2022-green"/></p>
 
 # Mobflix
-## Aplicação que recebe o cadastro de vídeos do Youtube, para separar-los em categorias e exibi-los em uma lista. Feito para o Challenge Mobile de Android da Alura,
-utilizando a linguagem Kotlin.
+## Aplicação que recebe o cadastro de vídeos do Youtube, para separar-los em categorias e exibi-los em uma lista. Feito para o Challenge Mobile de Android da Alura, utilizando a linguagem Kotlin.
 
 # :hammer: Funcionalidades do projeto
-## O App lista os vídeos, podendo ser separados por categorias, mostrando a thumbnail e a categoria do vídeo. Ao clicar em um vídeo, a pessoa é redirecionada para o
-Youtube para assisti-lo. Há opções de cadastro, alteração e remocão de vídeos. Todo armazenamento é mantido com persistência interna, portanto, ao finalizar o App as
-informações não são perdidas.
+## O App lista os vídeos, podendo ser separados por categorias, mostrando a thumbnail e a categoria do vídeo. Ao clicar em um vídeo, a pessoa é redirecionada para o Youtube para assisti-lo. Há opções de cadastro, alteração e remocão de vídeos. Todo armazenamento é mantido com persistência interna, portanto, ao finalizar o App as informações não são perdidas.
 
 # ✔️ Técnicas e tecnologias utilizadas
 
