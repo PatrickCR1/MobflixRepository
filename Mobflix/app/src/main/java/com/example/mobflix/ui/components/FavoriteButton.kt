@@ -27,7 +27,7 @@ fun FavoriteButton(
     IconToggleButton(
         checked = video.favorite,
         onCheckedChange = {
-            function
+            function.invoke()
             isFavorite = !isFavorite
         }
     ) {

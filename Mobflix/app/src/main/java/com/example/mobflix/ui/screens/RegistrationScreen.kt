@@ -2,6 +2,8 @@ package com.example.mobflix.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -46,6 +48,7 @@ fun RegistrationScreen(viewModel: VideoRegistrationViewModel = getViewModel()) {
                 .fillMaxSize()
                 .padding(contentPadding)
                 .background(BlackBackground)
+                .verticalScroll(rememberScrollState(0))
         ) {
             Spacer(Modifier.height(smallSpacer))
             ScreenTitleText(name = stringResource(id = R.string.video_registration))
@@ -59,6 +62,7 @@ fun RegistrationScreen(viewModel: VideoRegistrationViewModel = getViewModel()) {
             VideoPreviewSectionRegistrationScreen(categoryText = categoryText!!, image = image) {
                 viewModel.videoRegistration()
             }
+            Spacer(Modifier.height(smallSpacer))
         }
         LaunchedEffect(key1 = Unit) {
             viewModel.snackBar.observeForever {
