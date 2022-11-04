@@ -14,7 +14,7 @@
 <img src="https://github.com/PatrickCR1/MobflixRepository/blob/Main/Mobflix%20Gifs/Alterando%20V%C3%ADdeo.gif" width="240" height="450" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://github.com/PatrickCR1/MobflixRepository/blob/Main/Mobflix%20Gifs/Removendo%20V%C3%ADdeo.gif" width="240" height="450" />
 
 # :hammer: Funcionalidades do projeto
-## O Aplicativo lista os vídeos, podendo ser separados por categorias, mostrando a thumbnail e a categoria do vídeo. Ao clicar em um vídeo, a pessoa é redirecionada para o Youtube para assisti-lo. Há opções de cadastro, alteração e remocão de vídeos. Todo armazenamento é mantido com persistência interna, portanto, ao finalizar o aplicativo as informações não são perdidas.
+## <center> O Aplicativo lista os vídeos, podendo ser separados por categorias, mostrando a thumbnail e a categoria do vídeo. Ao clicar em um vídeo, a pessoa é redirecionada para o Youtube para assisti-lo. Há opções de cadastro, alteração e remocão de vídeos. Todo armazenamento é mantido com persistência interna, portanto, ao finalizar o aplicativo as informações não são perdidas. <center>
 
 # ✔️ Técnicas e tecnologias utilizadas
 
