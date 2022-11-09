@@ -22,7 +22,7 @@
 
 ### `Linguagem Kotlin`
 ### `Android Studio`
-### `Paradigma de orientação à objetvos`
+### `Paradigma de orientação à objetos`
 ### `Arquitetura MVVM`
 
 ## As técnicas e tecnologias utilizadas pra isso são:
