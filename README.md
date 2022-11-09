@@ -8,10 +8,10 @@
 
 
 ## Cadastro de Vídeo |  Demonstração de Uso 
-<img src="https://github.com/PatrickCR1/MobflixRepository/blob/Main/Mobflix%20Gifs/Cadastro%20de%20V%C3%ADdeo.gif" width="240" height="450" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://github.com/PatrickCR1/MobflixRepository/blob/Main/Mobflix%20Gifs/Filtra%20por%20Categoria%20e%20Redireciona%20para%20o%20Youtube.gif" width="240" height="450" /> 
+<img src="https://github.com/PatrickCR1/MobflixRepository/blob/Main/Images/Cadastro%20de%20V%C3%ADdeo.gif" width="240" height="450" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://github.com/PatrickCR1/MobflixRepository/blob/Main/Images/Filtra%20por%20Categoria%20e%20Redireciona%20para%20o%20Youtube.gif" width="240" height="450" /> 
 
 ## Alterando Vídeo | Deletando Vídeo
-<img src="https://github.com/PatrickCR1/MobflixRepository/blob/Main/Mobflix%20Gifs/Alterando%20V%C3%ADdeo.gif" width="240" height="450" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://github.com/PatrickCR1/MobflixRepository/blob/Main/Mobflix%20Gifs/Removendo%20V%C3%ADdeo.gif" width="240" height="450" />
+<img src="https://github.com/PatrickCR1/MobflixRepository/blob/Main/Images/Alterando%20V%C3%ADdeo.gif" width="240" height="450" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://github.com/PatrickCR1/MobflixRepository/blob/Main/Images/Removendo%20V%C3%ADdeo.gif" width="240" height="450" />
 
 # :hammer: Funcionalidades do projeto
 ### <center> O Aplicativo lista os vídeos, podendo ser separados por categorias, mostrando a thumbnail e a categoria do vídeo. Ao clicar em um vídeo, a pessoa é redirecionada para o Youtube para assisti-lo. Há opções de cadastro, alteração e remocão de vídeos. Todo armazenamento é mantido com persistência interna, portanto, ao finalizar o aplicativo as informações não são perdidas. <center>
