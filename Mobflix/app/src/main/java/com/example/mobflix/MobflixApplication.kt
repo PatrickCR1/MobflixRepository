@@ -1,4 +1,4 @@
-package com.example.mobflix.di
+package com.example.mobflix
 
 import android.app.Application
 import com.example.mobflix.di.modules.MobflixWebClientModules

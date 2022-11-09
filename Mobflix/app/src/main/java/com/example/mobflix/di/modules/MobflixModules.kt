@@ -8,7 +8,6 @@ import com.example.mobflix.service.repository.local.VideoDAO
 import com.example.mobflix.service.repository.local.VideoDatabase
 import com.example.mobflix.service.repository.remote.RetrofitClient
 import com.example.mobflix.service.repository.remote.YoutubeService
-import com.example.mobflix.ui.viewmodel.BaseVideoViewModel
 import com.example.mobflix.ui.viewmodel.MainViewModel
 import com.example.mobflix.ui.viewmodel.VideoEditViewModel
 import com.example.mobflix.ui.viewmodel.VideoRegistrationViewModel

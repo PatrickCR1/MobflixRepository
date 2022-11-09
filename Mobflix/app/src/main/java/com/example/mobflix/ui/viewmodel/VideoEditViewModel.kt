@@ -40,7 +40,7 @@ class VideoEditViewModel(
 
     // API Listener
     val listener = object : APIListener<String> {
-        override fun onSucess(result: String) {
+        override fun onSuccess(result: String) {
             image.value = result
         }
 

@@ -228,7 +228,7 @@ class VideoEditViewModelTests {
     fun callingCheckImageWithValidImageShouldReturnTrue() {
 
         // Act
-        viewModel.listener.onSucess("jashdajshdhjsa")
+        viewModel.listener.onSuccess("jashdajshdhjsa")
         val returnValue = viewModel.checkImage()
 
         // Assert
@@ -239,7 +239,7 @@ class VideoEditViewModelTests {
     fun callingCheckImageWithEmptyImageShouldReturnFalse() {
 
         // Act
-        viewModel.listener.onSucess("")
+        viewModel.listener.onSuccess("")
         val returnValue = viewModel.checkImage()
 
         // Assert

@@ -132,7 +132,7 @@ class VideoRepositoryTests {
     }
 
     @Test
-    fun whenGetThumnailImageResponseIsSucessfulAndCodeIs200AndItemListIsNotZero() = runBlocking {
+    fun whenGetThumnailImageResponseIsSuccessfulAndCodeIs200AndItemListIsNotZero() = runBlocking {
         // Arrange
         val thumbnailUrl = thumbnailSample
         val highResolution = HighResolution(thumbnailUrl)
@@ -143,37 +143,37 @@ class VideoRepositoryTests {
         val topResponse = TopResponse(listItems)
 
         coEvery { webService.getVideo(any(), any(), any()) } returns Response.success(topResponse)
-        coEvery { listener.onSucess(any()) } returns Unit
+        coEvery { listener.onSuccess(any()) } returns Unit
 
         // Act
         videoRepository.getThumbnailImage(id, listener)
 
         // Assert
         verify {
-            listener.onSucess(thumbnailSample)
+            listener.onSuccess(thumbnailSample)
         }
     }
 
     @Test
-    fun whenGetThumnailImageResponseIsSucessfulAndCodeIs200AndItemListIsZero() = runBlocking {
+    fun whenGetThumnailImageResponseIsSuccessfulAndCodeIs200AndItemListIsZero() = runBlocking {
         // Arrange
         coEvery { webService.getVideo(any(), any(), any()) } returns Response.success(
             mockTopResponse
         )
         coEvery { mockTopResponse.items } returns zeroItemList
-        coEvery { listener.onSucess(any()) } returns Unit
+        coEvery { listener.onSuccess(any()) } returns Unit
 
         // Act
         videoRepository.getThumbnailImage(id, listener)
 
         // Assert
         verify {
-            listener.onSucess("")
+            listener.onSuccess("")
         }
     }
 
     @Test
-    fun whenGetThumnailImageResponseIsSucessfulAndCodeIsNot200() = runBlocking {
+    fun whenGetThumnailImageResponseIsSuccessfulAndCodeIsNot200() = runBlocking {
         // Arrange
         coEvery { webService.getVideo(any(), any(), any()) } returns Response.success(
             205,
@@ -192,7 +192,7 @@ class VideoRepositoryTests {
     }
 
     @Test
-    fun whenGetThumnailImageResponseIsNotSucessful() = runBlocking {
+    fun whenGetThumnailImageResponseIsNotSuccessful() = runBlocking {
         // Arrange
         coEvery { webService.getVideo(any(), any(), any()) } returns Response.error(404, mockk())
         coEvery { listener.onFailure(null) } returns Unit

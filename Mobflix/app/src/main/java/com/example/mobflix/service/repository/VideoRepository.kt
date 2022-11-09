@@ -20,13 +20,13 @@ class VideoRepository(
     suspend fun getThumbnailImage(videoId: String, listener: APIListener<String>) {
         val response = webService.getVideo(id = videoId)
         if (response.isSuccessful) {
-            responseSucessful(response, listener)
+            responseSuccessful(response, listener)
         } else {
             listener.onFailure(null)
         }
     }
 
-    private fun responseSucessful(
+    private fun responseSuccessful(
         response: Response<TopResponse>,
         listener: APIListener<String>
     ) {
@@ -37,13 +37,12 @@ class VideoRepository(
                 } else {
                     ""
                 }
-            listener.onSucess(imageUrl)
+            listener.onSuccess(imageUrl)
 
         } else {
             listener.onFailure(null)
         }
     }
-
 
     suspend fun getVideoList(): List<VideoModel> {
         val list = categoryRepository.getCategoryList()
@@ -88,5 +87,4 @@ class VideoRepository(
         val videoDB = video.toVideoDatabaseModel()
         dao.updateVideo(videoDB)
     }
-
 }

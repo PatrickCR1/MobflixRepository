@@ -2,7 +2,7 @@ package com.example.mobflix.service.listener
 
 interface APIListener<T> {
 
-    fun onSucess(result: T)
+    fun onSuccess(result: T)
 
     fun onFailure(message: String?)
 
