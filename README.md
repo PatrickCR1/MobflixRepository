@@ -15,7 +15,7 @@
 | :fire: Desafio     | https://www.alura.com.br/challenges/mobile
 
 <!-- Inserir imagem com a #vitrinedev ao final do link -->
-![](https://github.com/PatrickCR1/MobflixRepository/blob/Main/Images/ProjectImage.png)
+![](https://github.com/PatrickCR1/MobflixRepository/blob/Main/Images/ProjectImage.png#vitrinedev)
 
 ## Detalhes do projeto
 
