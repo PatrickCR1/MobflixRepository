@@ -3,9 +3,9 @@
 <p align="center"><img src="https://img.shields.io/badge/finished-november2022-green"/></p>
 <p align="center"><img src="https://img.shields.io/badge/tested-november2022-green"/></p>
 
-# Nome do meu projeto
+# Mobflix
 
-Rápida descrição do objetivo de fazer esse projeto
+### Aplicação que recebe o cadastro de vídeos do Youtube, para separar-los em categorias e exibi-los em uma lista. Feito para o Challenge Mobile de Android da Alura, utilizando a linguagem Kotlin.
 
 | :placard: Vitrine.Dev |     |
 | -------------  | --- |
@@ -15,13 +15,9 @@ Rápida descrição do objetivo de fazer esse projeto
 | :fire: Desafio     | https://www.alura.com.br/challenges/mobile
 
 <!-- Inserir imagem com a #vitrinedev ao final do link -->
-![](https://via.placeholder.com/1200x500.png?text=imagem+lindona+do+meu+projeto#vitrinedev)
+![](https://github.com/PatrickCR1/MobflixRepository/blob/Main/Images/ProjectImage.png)
 
 ## Detalhes do projeto
-
-# Mobflix
-### Aplicação que recebe o cadastro de vídeos do Youtube, para separar-los em categorias e exibi-los em uma lista. Feito para o Challenge Mobile de Android da Alura, utilizando a linguagem Kotlin.
-
 
 ## Cadastro de Vídeo |  Demonstração de Uso 
 <img src="https://github.com/PatrickCR1/MobflixRepository/blob/Main/Images/Cadastro%20de%20V%C3%ADdeo.gif" width="240" height="450" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="https://github.com/PatrickCR1/MobflixRepository/blob/Main/Images/Filtra%20por%20Categoria%20e%20Redireciona%20para%20o%20Youtube.gif" width="240" height="450" /> 
