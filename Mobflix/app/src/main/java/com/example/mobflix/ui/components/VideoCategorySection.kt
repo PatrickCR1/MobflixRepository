@@ -14,6 +14,7 @@ import com.example.compose.ui.theme.DarkGoldBackgroundVideoCategory
 import com.example.mobflix.R
 import com.example.mobflix.service.model.category.CategoryModel
 import com.example.mobflix.ui.theme.mediumSpacedBy
+import com.example.mobflix.ui.theme.smallPadding
 import com.example.mobflix.ui.theme.verySmallPadding
 import com.example.mobflix.ui.viewmodel.MainViewModel
 import org.koin.androidx.compose.getViewModel
@@ -22,7 +23,8 @@ import org.koin.androidx.compose.getViewModel
 fun VideoCategorySection(categoryList: List<CategoryModel>, function: (String) -> Unit) {
     LazyRow(
         Modifier
-            .testTag(stringResource(id = R.string.video_section_row)),
+            .testTag(stringResource(id = R.string.video_section_row))
+            .padding(start = smallPadding),
         horizontalArrangement = Arrangement.spacedBy(mediumSpacedBy)
     ) {
         if (!categoryList!!.isEmpty()) {

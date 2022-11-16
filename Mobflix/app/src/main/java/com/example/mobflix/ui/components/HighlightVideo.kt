@@ -26,6 +26,7 @@ import com.example.mobflix.service.model.video.VideoModel
 import com.example.mobflix.ui.theme.mediumCornerShape
 import com.example.mobflix.ui.theme.normalLightFontWeight
 import com.example.mobflix.ui.theme.robotoFamily
+import com.example.mobflix.ui.theme.smallPadding
 import com.example.mobflix.ui.viewmodel.MainViewModel
 import org.koin.androidx.compose.getViewModel
 
@@ -40,7 +41,9 @@ fun HighlightVideo(videoModel: VideoModel, function: () -> Unit) {
         Image(
             painter = rememberAsyncImagePainter(model = videoModel.image),
             contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .padding(start = smallPadding)
+                .fillMaxSize(),
             contentScale = ContentScale.FillWidth
         )
         Surface(
